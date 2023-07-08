@@ -10,18 +10,18 @@ Employer:
 •	Browse Candidates: Employers can efficiently search and browse through a pool of candidates based on specific criteria.
 •	Post Job Offers: Employers can post job openings and provide detailed descriptions of the positions available.
 •	Candidate Selection: Employers can review and select candidates who have applied for a job offer to schedule interviews.
-•	Application Tracking: Employers can track the progress of their job postings and monitor the status of candidates' applications.
+
 Student/Candidate:
 
 •	Account Creation/Registration: Students can easily create an account or register on the platform.
 •	Login: Students can securely log in to their accounts to access the platform's features.
-•	Resume Building/Upload: Students can create and upload their resumes to showcase their skills and qualifications.
+•	Resume Building/Upload: Students  upload their resumes to showcase their skills and qualifications.
 •	Browse and Apply for Job Offers: Students can explore various job postings and apply for positions that match their interests and qualifications.
 •	Application Tracking: Students can keep track of their applications and monitor the progress of each application.
 Admin:
 
-•	User Profile Management: The admin has the authority to manage all user profiles, ensuring the accuracy and security of the information.
-•	Job Postings Management: The admin can oversee the job postings, ensuring they meet the platform's guidelines and standards.
+•	User Profile Management: The admin has the authority to manage all user profiles.
+•	Job Postings Management: The admin can oversee the job postings.
 •	Tracking and Notifications: The admin can track the activities of both employers and students, ensuring a smooth user experience.
 Notifications:
 
