@@ -5,6 +5,7 @@ The project aims to develop a comprehensive career service platform that facilit
 
 Employer:
 
+
 •	Account Creation/Registration: Employers can easily create an account or register on the platform.
 •	Login: Employers can securely log in to their accounts to access the platform's features.
 •	Browse Candidates: Employers can efficiently search and browse through a pool of candidates based on specific criteria.
