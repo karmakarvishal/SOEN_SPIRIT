@@ -1,5 +1,26 @@
 # SOEN_SPIRIT
 
+## Team Members and Roles:
+
+## Jay Dhanani (40232469) 
+  - Role : Scrum Master and Developer
+  - Expertise:  Front-End and Back-End Technologis
+## Neha Deshmukh (40221804)
+  - Role : Project Manager and Developer
+  - Expertise:  Project Management and Automated Testing
+## Priyesh Bhalala (40217267)
+  - Role : Product Owner and Developer
+  - Expertise:  Front-End Technologies and Database Management 
+## Simran Kaur (40221666)
+  - Role : Developer
+  - Expertise:  Database Management and Back-End Technologies
+## Vishal Karmakar (40220935)
+  - Role : Product Owner and Developer
+  - Expertise:  Front-End and Back-End Technologies
+## Vinay Sahrawat (40220936)
+  - Role : Developer
+  - Expertise: Front-End and Back-End Technologis
+    
 ## Project Description:
 The project aims to develop a comprehensive career service platform that facilitates job searching and recruitment processes for both students and employers. This platform will provide various features and functionalities to enhance the user experience.
 
