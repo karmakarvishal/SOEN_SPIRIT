@@ -70,3 +70,11 @@ This project aims to develop a Career Services Application with a backend system
           These high-level APIs are designed to be intuitive, efficient, and well-documented, enabling seamless integration with the AngularJS, JavaScript, and jQuery frontend of the Career Services Application and smooth communication between the two systems.
     - Role-Based Authorization
         - To control access to various features and resources within the Career Services Application, the backend implements a role-based authorization system. This system allows different users to have different levels of access based on their roles and permissions. The backend maintains a set of roles (such as "admin," "employer," and "job seeker") and associates them with specific permissions. Based on their assigned roles, users are granted or restricted access to certain functionalities.
+     
+### Authentication
+
+To ensure secure access to the Career Services Application, the backend employs a robust authentication mechanism. It utilizes *JSON Web Tokens (JWT)* for user authentication. JWT is a stateless and secure method for transmitting information between parties as a JSON object. It enables the backend to verify the authenticity of requests and ensure that only authorized users can access protected resources.
+
+### File Upload (Specifically Resume Upload)
+
+The backend incorporates a file upload functionality, specifically for resume uploads. When users upload their resumes, the backend handles the process securely and efficiently. It utilizes a multipart form-data approach to receive and process file uploads. The uploaded resumes are then stored in a designated directory on the server or in a cloud storage service like *Amazon S3*.
