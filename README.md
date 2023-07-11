@@ -23,7 +23,7 @@
 
     
 ## Project Description:
-The project aims to develop a comprehensive career service platform that facilitates job searching and recruitment processes for both students and employers. This platform will provide various features and functionalities to enhance the user experience.
+This project aims to develop a Career Services Application with a backend system using MySQL as the database technology. The backend is responsible for handling data storage, authentication, file uploads (specifically resume uploads), role-based authorization, and exposing high-level APIs for the front end. The frontend technologies used in this project include AngularJS, JavaScript, and jQuery.
 
 ###  Employer:
 - Account Creation/Registration: Employers can easily create an account or register on the platform.
@@ -50,6 +50,8 @@ The project aims to develop a comprehensive career service platform that facilit
 - By integrating these features and functionalities, the platform will provide a seamless experience for employers, students, and administrators, making the job searching and recruitment processes efficient and effective.
 
 ## Technologies:
+- Frontend:
+    - The front end of the Career Services Application is built using AngularJS, JavaScript, and jQuery. AngularJS is a powerful JavaScript framework that provides a robust structure for building dynamic web applications. JavaScript is a fundamental programming language used for enhancing interactivity and adding custom functionalities. jQuery is a feature-rich JavaScript library that simplifies DOM manipulation, event handling, and AJAX interactions.
 - Backend:
     - The backend of this Career Services Application follows a modular and scalable approach. It is built using modern web development principles and technologies, ensuring robustness, security, and maintainability. The backend architecture is designed to handle concurrent requests efficiently, allowing for a seamless user experience.
     - Database:
@@ -65,5 +67,6 @@ The project aims to develop a comprehensive career service platform that facilit
           5. Search APIs: APIs for searching and filtering job listings and user profiles based on various criteria.
           6. Authentication and Authorization APIs: APIs for user authentication and authorization checks.
           7. Error Handling APIs: APIs to handle and return appropriate error messages and status codes.
-  
           These high-level APIs are designed to be intuitive, efficient, and well-documented, enabling seamless integration with the AngularJS, JavaScript, and jQuery frontend of the Career Services Application and smooth communication between the two systems.
+    - Role-Based Authorization
+        - To control access to various features and resources within the Career Services Application, the backend implements a role-based authorization system. This system allows different users to have different levels of access based on their roles and permissions. The backend maintains a set of roles (such as "admin," "employer," and "job seeker") and associates them with specific permissions. Based on their assigned roles, users are granted or restricted access to certain functionalities.
