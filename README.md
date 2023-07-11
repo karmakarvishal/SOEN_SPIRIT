@@ -16,7 +16,7 @@
   - Expertise:  Database Management and Back-End Technologies
 ### Vishal Karmakar (40220935)
   - Role : Developer
-  - Expertise:  Front-End and Back-End Technologies
+  - Expertise: Back-End Technologies
 ### Vinay Sahrawat (40220936)
   - Role : Product Owner & Developer
   - Expertise: Front-End and Back-End Technologies
