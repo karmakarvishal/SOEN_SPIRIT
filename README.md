@@ -1,4 +1,4 @@
-# SOEN_SPIRIT
+# Spirit-Soen6011summer2023
 
 ## Team Members and Roles:
 
@@ -15,10 +15,10 @@
   - Role : Developer
   - Expertise:  Database Management and Back-End Technologies
 ### Vishal Karmakar (40220935)
-  - Role : Product Owner and Developer
+  - Role : Developer
   - Expertise:  Front-End and Back-End Technologies
 ### Vinay Sahrawat (40220936)
-  - Role : Developer
+  - Role : Product Owner & Developer
   - Expertise: Front-End and Back-End Technologies
 
     
