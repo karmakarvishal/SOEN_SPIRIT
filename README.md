@@ -26,3 +26,11 @@ The project aims to develop a comprehensive career service platform that facilit
 - Employer Notifications: Employers will receive instant notifications when students apply for their job postings, keeping them informed and facilitating prompt responses.
 - Student Notifications: Students will receive notifications when they are selected for an interview, ensuring they are aware of the opportunity.
 - By integrating these features and functionalities, the platform will provide a seamless experience for employers, students, and administrators, making the job searching and recruitment processes efficient and effective.
+
+## Technologies:
+- Backend:
+    - The backend of this Career Services Application follows a modular and scalable approach. It is built using modern web development principles and technologies, ensuring robustness, security, and maintainability. The backend architecture is designed to handle concurrent requests efficiently, allowing for a seamless user experience.
+    - Database:
+        - The backend utilizes *MySQL* as the database technology to store and manage data related to user profiles, job listings, connections, and more. MySQL is a reliable and widely-used relational database management system that offers robust data handling capabilities, transaction support, and scalability.
+    - Backend Library/Framework
+        - To streamline the development process and enhance the functionality of the backend, the project incorporates the *Express.js* framework. Express.js is a fast and minimalist web application framework for Node.js. It provides a range of features and middleware that simplify routing, request handling, and response management, making it an ideal choice for building RESTful APIs. 
