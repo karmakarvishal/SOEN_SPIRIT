@@ -55,4 +55,15 @@ The project aims to develop a comprehensive career service platform that facilit
     - Database:
         - The backend utilizes *MySQL* as the database technology to store and manage data related to user profiles, job listings, connections, and more. MySQL is a reliable and widely-used relational database management system that offers robust data handling capabilities, transaction support, and scalability.
     - Backend Library/Framework
-        - To streamline the development process and enhance the functionality of the backend, the project incorporates the *Express.js* framework. Express.js is a fast and minimalist web application framework for Node.js. It provides a range of features and middleware that simplify routing, request handling, and response management, making it an ideal choice for building RESTful APIs. 
+        - To streamline the development process and enhance the functionality of the backend, the project incorporates the *Express.js* framework. Express.js is a fast and minimalist web application framework for Node.js. It provides a range of features and middleware that simplify routing, request handling, and response management, making it an ideal choice for building RESTful APIs.
+    - High-Level APIs Requirements
+        - The backend exposes a set of high-level APIs to facilitate communication between the frontend and backend systems in the Career Services Application. These APIs enable the frontend, built using AngularJS, JavaScript, and jQuery, to perform various operations and interact with the backend effectively. Some of the high-level APIs requirements include:
+          1. User Management APIs: APIs for user registration, login, profile retrieval, and update.
+          2. File Upload APIs: APIs for handling resume uploads and associating them with user profiles.
+          3. Job Listings APIs: APIs for creating, retrieving, updating, and deleting job listings.
+          4. Connection APIs: APIs for managing user connections, such as sending connection requests and accepting/rejecting them.
+          5. Search APIs: APIs for searching and filtering job listings and user profiles based on various criteria.
+          6. Authentication and Authorization APIs: APIs for user authentication and authorization checks.
+          7. Error Handling APIs: APIs to handle and return appropriate error messages and status codes.
+  
+          These high-level APIs are designed to be intuitive, efficient, and well-documented, enabling seamless integration with the AngularJS, JavaScript, and jQuery frontend of the Career Services Application and smooth communication between the two systems.
