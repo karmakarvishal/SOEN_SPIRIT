@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head>
-  <title>AngularJS Routing Example</title>
   <base href="/">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
+  <link rel="stylesheet" href="ui/style/custom.css">
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="node_modules/oclazyload/dist/ocLazyLoad.min.js"></script>
   <script src="ui/app.js"></script>
   <script src="ui/routing.js"></script>
+  <title>Career Service Platform</title>
 </head>
+
 <body>
-  <h1>AngularJS Routing Example</h1>
-  <ul>
-    <li><a ui-sref="home">Home</a></li>
-    <li><a ui-sref="login">About</a></li>
-  </ul>
-  <div ui-view></div>
+  <ui-view></ui-view>
 </body>
+
 </html>

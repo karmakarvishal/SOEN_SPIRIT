@@ -1,32 +1,60 @@
 angular.module("myApp")
-    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-        $locationProvider.hashPrefix('');
-        $locationProvider.html5Mode(true);
+    .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
-            .state("home", {
-                url: "/home",
-                templateUrl: "ui/Home/home.html",
-                controller: "HomeController",
+            .state("career-platform", {
+                url: "/career-platform",
+                templateUrl: "ui/career-platform-layout.html",
+                params: {
+                    currentState: "root"
+                },
                 resolve: {
                     loadFile: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            files: ["ui/Home/home-controller.js"]
+                            files: ["ui/career-platform-controller.js",
+                                "ui/career-platform-factory.js"]
                         });
+                    }
+                },
+                controller: "careerPlatformController"
+            })
+            .state("career-platform.home", {
+                url: "/home",
+                params: {
+                    currentState: "home"
+                },
+                resolve: {
+                    loadFile: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            files: ["ui/views/home/home-controller.js"]
+                        });
+                    }
+                },
+                views: {
+                    "PrimaryContent": {
+                        templateUrl: "ui/views/home/home.html",
+                        controller: "HomeController"
                     }
                 }
             })
-            .state("login", {
+            .state("career-platform.login", {
                 url: "/login",
-                templateUrl: "ui/Login/login.html",
-                controller: "LoginController",
+                params: {
+                    currentState: "home"
+                },
                 resolve: {
                     loadFile: function ($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            files: ["ui/Login/login-controller.js"]
+                            files: ["ui/views/login/login-controller.js"]
                         });
+                    }
+                },
+                views: {
+                    "PrimaryContent": {
+                        templateUrl: "ui/views/login/login.html",
+                        controller: "LoginController"
                     }
                 }
             })
 
-        $urlRouterProvider.otherwise("/");
+        $urlRouterProvider.otherwise("/career-platform");
     });
