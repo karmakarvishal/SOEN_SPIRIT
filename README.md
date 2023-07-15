@@ -1,27 +1,4 @@
-# Spirit-Soen6011summer2023
-
-## Team Members and Roles:
-
-### Jay Dhanani (40232469) 
-  - Role : Scrum Master and Developer
-  - Expertise:  Front-End and Back-End Technologies
-### Neha Deshmukh (40221804)
-  - Role : Project Manager and Developer
-  - Expertise:  Project Management and Automated Testing
-### Priyesh Bhalala (40217267)
-  - Role : Product Owner and Developer
-  - Expertise:  Front-End Technologies and Database Management 
-### Simran Kaur (40221666)
-  - Role : Developer
-  - Expertise:  Database Management and Back-End Technologies
-### Vishal Karmakar (40220935)
-  - Role : Developer
-  - Expertise: Back-End Technologies
-### Vinay Sahrawat (40220936)
-  - Role : Product Owner & Developer
-  - Expertise: Front-End and Back-End Technologies
-
-    
+# Spirit-Soen6011summer2023   
 ## Project Description:
 This project aims to develop a Career Services Application with a backend system using MySQL as the database technology. The backend is responsible for handling data storage, authentication, file uploads (specifically resume uploads), role-based authorization, and exposing high-level APIs for the front end. The frontend technologies used in this project include AngularJS, JavaScript, and jQuery.
 
@@ -76,3 +53,24 @@ This project aims to develop a Career Services Application with a backend system
 
   - File Upload (Specifically Resume Upload): 
       - The backend incorporates a file upload functionality, specifically for resume uploads. When users upload their resumes, the backend handles the process securely and efficiently. It utilizes a multipart form-data approach to receive and process file uploads. The uploaded resumes are then stored in a designated directory on the server or in a cloud storage service like *Amazon S3*.
+
+## Team Members and Roles:
+
+### Jay Dhanani (40232469) 
+  - Role : Scrum Master and Developer
+  - Expertise:  Front-End and Back-End Technologies
+### Neha Deshmukh (40221804)
+  - Role : Project Manager and Developer
+  - Expertise:  Project Management and Automated Testing
+### Priyesh Bhalala (40217267)
+  - Role : Product Owner and Developer
+  - Expertise:  Front-End Technologies and Database Management 
+### Simran Kaur (40221666)
+  - Role : Developer
+  - Expertise:  Database Management and Back-End Technologies
+### Vishal Karmakar (40220935)
+  - Role : Developer
+  - Expertise: Back-End Technologies
+### Vinay Sahrawat (40220936)
+  - Role : Product Owner & Developer
+  - Expertise: Front-End and Back-End Technologies
