@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+  <title>AngularJS Routing Example</title>
+  <base href="/">
+  <script src="node_modules/angular/angular.min.js"></script>
+  <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="node_modules/oclazyload/dist/ocLazyLoad.min.js"></script>
+  <script src="ui/app.js"></script>
+  <script src="ui/routing.js"></script>
+</head>
+<body>
+  <h1>AngularJS Routing Example</h1>
+  <ul>
+    <li><a ui-sref="home">Home</a></li>
+    <li><a ui-sref="login">About</a></li>
+  </ul>
+  <div ui-view></div>
+</body>
+</html>
