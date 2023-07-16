@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     uploaded_by_user_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true
+      allowNull: false
     }
   }, {
     sequelize,
