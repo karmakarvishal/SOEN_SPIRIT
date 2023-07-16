@@ -7,7 +7,6 @@ exports.signin = async (req, res) => {
   const user = await db.user.findOne({
     where: {
       email: req.body.email,
-      role: req.body.role,
     },
   });
   if (user == null) {
@@ -53,7 +52,6 @@ exports.signup = async (req, res) => {
     const checkUser = await db.user.findOne({
       where: {
         email: req.body.email,
-        role: req.body.role,
       },
     });
 
