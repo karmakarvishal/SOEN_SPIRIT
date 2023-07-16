@@ -1,4 +1,5 @@
 const { where } = require("sequelize");
+const { user } = require("../models");
 const db = require("../models");
 
 exports.createOrUpdate = async (req, res) => {
@@ -79,5 +80,31 @@ exports.deleteJobs = async(req,res)=>{
         console.log(e);
         await transaction.rollback();
         res.status(500).json({ statusText: "Internal server error occured" });
+    }
+}
+
+exports.listJobs = async(req,res)=>{
+
+    try {
+        const user_id = req.payload.user_id;
+        let jobList = null;
+        if(user_id) //In case of Employer
+        {
+            jobList = await db.job.findAll(
+                {where:{
+                    user_id:user_id
+                }}
+            );
+        }else //In case of Candidates
+        {
+            jobList = await db.job.findAll();
+        }
+        
+        res.status(200).json(jobList);
+    } catch (error) {
+        console.log(error);
+        await transaction.rollback();
+        res.status(500).json({statusText:"Internal server error occured"})
+        
     }
 }
