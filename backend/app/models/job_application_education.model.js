@@ -1,39 +1,43 @@
 const Sequelize = require('sequelize');
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('attachments', {
+  return sequelize.define('job_application_educations', {
     id: {
       autoIncrement: true,
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false,
       primaryKey: true
     },
-    original_file_name: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    uploaded_file_name: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    uploaded_path: {
-      type: DataTypes.STRING(100),
-      allowNull: false
-    },
-    mime: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    extension: {
-      type: DataTypes.STRING(100),
-      allowNull: true
-    },
-    uploaded_by_user_id: {
+    job_application_id: {
       type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: true
+    },
+    school_or_university: {
+      type: DataTypes.STRING(100),
       allowNull: false
+    },
+    degree: {
+      type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    field_of_study: {
+      type: DataTypes.STRING(100),
+      allowNull: true
+    },
+    GPA: {
+      type: DataTypes.STRING(5),
+      allowNull: true
+    },
+    from_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
+    },
+    to_date: {
+      type: DataTypes.DATEONLY,
+      allowNull: true
     }
   }, {
     sequelize,
-    tableName: 'attachments',
+    tableName: 'job_application_educations',
     timestamps: false,
     indexes: [
       {

@@ -30,17 +30,11 @@ module.exports = function(sequelize, DataTypes) {
     user_id: {
       type: DataTypes.INTEGER.UNSIGNED,
       allowNull: false
-    },
-    is_profile_completed: {
-      type: DataTypes.TINYINT.UNSIGNED,
-      allowNull: false,
-      defaultValue: 0,
-      comment: "0 => Incomplete, 1 => complete"
     }
   }, {
     sequelize,
     tableName: 'candidates',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
