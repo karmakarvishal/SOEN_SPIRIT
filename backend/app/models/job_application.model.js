@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'job_applications',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",

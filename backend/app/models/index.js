@@ -26,6 +26,13 @@ db.Sequelize = Sequelize;
 db.Op = Op;
 db.sequelize = sequelize;
 
-
+db.attachment = require("./attachment.model.js")(sequelize, Sequelize, DataTypes);
+db.candidate = require("./candidate.model.js")(sequelize, Sequelize, DataTypes);
+db.employer = require("./employer.model.js")(sequelize, Sequelize, DataTypes);
+db.job_application_education = require("./job_application_education.model.js")(sequelize, Sequelize, DataTypes);
+db.job_application_experience = require("./job_application_experience.model.js")(sequelize, Sequelize, DataTypes);
+db.job_application = require("./job_application.model.js")(sequelize, Sequelize, DataTypes);
+db.job = require("./job.model.js")(sequelize, Sequelize, DataTypes);
+db.user = require("./user.model.js")(sequelize, Sequelize, DataTypes);
 
 module.exports = db;

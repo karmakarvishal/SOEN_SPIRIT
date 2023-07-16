@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     sequelize,
     tableName: 'attachments',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
