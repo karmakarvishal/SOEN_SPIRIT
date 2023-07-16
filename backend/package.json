@@ -22,6 +22,7 @@
         "jsonwebtoken": "^9.0.1",
         "mixpanel": "^0.17.0",
         "mysql2": "^2.3.3",
+        "nodemailer": "^6.9.3",
         "sequelize": "^6.27.0",
         "sequelize-auto": "^0.8.8"
     },
