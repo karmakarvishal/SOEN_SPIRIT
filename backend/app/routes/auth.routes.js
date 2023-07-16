@@ -42,7 +42,6 @@ module.exports = function (app) {
     check("password")
       .notEmpty()
       .withMessage("Password field should not be empty"),
-    check("role").isIn(["CANDIDATE", "EMPLOYER", "ADMIN"]).withMessage("Provide role, supported values: CANDIDATE, EMPLOYER, or ADMIN"),
     (req, res, next) => {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
