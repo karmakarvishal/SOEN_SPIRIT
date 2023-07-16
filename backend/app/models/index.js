@@ -35,4 +35,33 @@ db.job_application = require("./job_application.model.js")(sequelize, Sequelize,
 db.job = require("./job.model.js")(sequelize, Sequelize, DataTypes);
 db.user = require("./user.model.js")(sequelize, Sequelize, DataTypes);
 
+db.job_application.belongsTo(db.candidate, {
+  as: "candidate",
+  foreignKey: "candidate_id",
+  targetKey: "id",
+});
+
+db.job_application.belongsTo(db.job, {
+  as: "job",
+  foreignKey: "job_id",
+  sourceKey: "id",
+});
+
+db.candidate.belongsTo(db.user, {
+  as: "user",
+  foreignKey: { name: "user_id" },
+  sourceKey: "id",
+});
+
+db.job_application.hasMany(db.job_application_education, {
+  as: "candidate_education",
+  foreignKey: { name: "job_application_id"},
+  sourceKey: "id"
+});
+
+db.job_application.hasMany(db.job_application_experience, {
+  as: "candidate_experience",
+  foreignKey: { name: "job_application_id"},
+  sourceKey: "id"
+});
 module.exports = db;
