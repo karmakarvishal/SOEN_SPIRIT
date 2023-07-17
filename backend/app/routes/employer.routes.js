@@ -35,5 +35,12 @@ module.exports = function (app) {
       },
       employerController.createOrUpdate
     );
+    
+    const getEmployerRoute = "/api/employer/:id"
+    app.get(
+      getEmployerRoute,
+      employerController.retrieve
+    );
+    app.all(getEmployerRoute, methodNotAllowed);
     app.all(createUpdateEmployerRoute, methodNotAllowed);
 };

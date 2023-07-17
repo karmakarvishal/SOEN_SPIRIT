@@ -61,3 +61,19 @@ exports.createOrUpdate = async (req, res) => {
         res.status(500).json({ statusText: "Internal server error occured" });
     }
 };
+
+exports.retrieve = async (req, res) => {
+    const candidate = await db.candidate.findOne({
+        include: ['user'],
+        where: {
+            id: req.params.id
+        }
+    });
+    console.log(candidate)
+    if (candidate == null) {
+        res.status(400).json({statusText: "Candidate not found."});
+        return;
+    }
+
+    res.status(200).json(candidate);
+}
