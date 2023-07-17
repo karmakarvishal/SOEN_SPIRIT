@@ -64,4 +64,10 @@ db.job_application.hasMany(db.job_application_experience, {
   foreignKey: { name: "job_application_id"},
   sourceKey: "id"
 });
+
+db.employer.hasOne(db.user, {
+  as: "user",
+  foreignKey: { name: "id"},
+  sourceKey: "user_id"
+});
 module.exports = db;

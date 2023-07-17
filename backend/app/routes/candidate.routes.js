@@ -35,4 +35,11 @@ module.exports = function (app) {
       candidateController.createOrUpdate
     );
     app.all(createUpdateCandidateRoute, methodNotAllowed);
+
+    const getCandidateRoute = "/api/candidate/:id"
+    app.get(
+      getCandidateRoute,
+      candidateController.retrieve
+    );
+    app.all(getCandidateRoute, methodNotAllowed);
 };
