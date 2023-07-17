@@ -22,7 +22,11 @@ module.exports = function(sequelize, DataTypes) {
     location: {
       type: DataTypes.STRING(100),
       allowNull: false
-    }
+    },
+    user_id: {
+      type: DataTypes.INTEGER.UNSIGNED,
+      allowNull: false
+    },
   }, {
     sequelize,
     tableName: 'jobs',

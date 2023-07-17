@@ -5,12 +5,18 @@ const db = require("../models");
 exports.createOrUpdate = async (req, res) => {
     const transaction = await db.sequelize.transaction();
     try {
-        const id = req.payload.id;
-        const checkJob = await db.job.findOne({
+        if (req.payload.role == "CANDIDATE") {
+            res
+                .status(400)
+                .json({ statusText: "You are not allowed to create Job, make sure you are Employer or Admin." });
+            return;
+        }
+        const jobId = req.body.job_id;
+        const checkJob = jobId ? await db.job.findOne({
             where: {
-              id: id
+              id: jobId
             },
-          });
+          }) : null;
         
         let job = null;
         // Update
@@ -20,10 +26,9 @@ exports.createOrUpdate = async (req, res) => {
                     type: req.body.type,
                     title: req.body.title,  
                     description: req.body.description,  
-                    updated_at: req.body.updated_at,  
                     location: req.body.location
                 },
-                { where: { id: id }, individualHooks: true },
+                { where: { id: jobId }, individualHooks: true },
                 { transaction }
             );
             job = {
@@ -31,18 +36,16 @@ exports.createOrUpdate = async (req, res) => {
                 type: req.body.type,
                 title: req.body.title,  
                 description: req.body.description,  
-                updated_at: new Date(),  
                 location: req.body.location
             };
         } else {
-            // Create
             job = await db.job.create(
                 {
                     type: req.body.type,
                     title: req.body.title,  
                     description: req.body.description,  
-                    created_at: new Date(),  
-                    location: req.body.location
+                    location: req.body.location,
+                    user_id: req.payload.id
                 },
                 { transaction }
             );
@@ -59,23 +62,29 @@ exports.createOrUpdate = async (req, res) => {
 exports.deleteJobs = async(req,res)=>{
     const transaction = await db.sequelize.transaction();
     try {
-        const id = req.body.id;
+        if (req.payload.role == "CANDIDATE") {
+            res
+                .status(400)
+                .json({ statusText: "You are not allowed to delete Job, make sure you are Employer or Admin." });
+            return;
+        }
+        const jobId = req.params.id;
         const checkJob = await db.job.findOne({
             where: {
-              id: id
+              id: jobId
             },
           });
         
         if (checkJob != null) {
-            await db.job.Destroy(
-                { where: { id: id }, individualHooks: true },
+            await db.job.destroy(
+                { where: { id: jobId }, individualHooks: true },
                 { transaction }
             );
         } else {
-            res.status(200).json("No Job Found");
+            res.status(400).json({statusText: "No Job Found"});
         }
         await transaction.commit()
-        res.status(200).json("Job is now deleted");
+        res.status(200).json({statusText: "Job is now deleted"});
     } catch (e) {
         console.log(e);
         await transaction.rollback();
@@ -86,24 +95,20 @@ exports.deleteJobs = async(req,res)=>{
 exports.listJobs = async(req,res)=>{
 
     try {
-        const user_id = req.body.user_id;
+        const user_id = req.payload.id;
         let jobList = null;
-        if(user_id) //In case of Employer
-        {
+        if(req.payload.role == "CANDIDATE") {
+            jobList = await db.job.findAll();
+        } else {
             jobList = await db.job.findAll(
                 {where:{
-                    user_id:user_id
+                    user_id: user_id
                 }}
             );
-        }else //In case of Candidates
-        {
-            jobList = await db.job.findAll();
         }
-        
         res.status(200).json(jobList);
     } catch (error) {
         console.log(error);
-        await transaction.rollback();
         res.status(500).json({statusText:"Internal server error occured"})
         
     }

@@ -17,10 +17,10 @@ module.exports = function (app) {
     const methodNotAllowed = (req, res, next) =>
         res.status(405).json({ statusText: "Method not supported" });
 
-    const createUpdateJobsRoute = "/api/jobs";
+    const createUpdateJobsRoute = "/api/job";
     app.post(
         createUpdateJobsRoute,
-      check("type").notEmpty().withMessage("type is required."),
+      check("type").isIn(["FULL-TIME", "PART-TIME", "INTERNSHIP", "CONTRACT"]).withMessage("Invalid role provided, supported values: FULL-TIME, PART-TIME, INTERNSHIP, or CONTRACT"),
       check("title").notEmpty().withMessage("title is required."),
       check("description").notEmpty().withMessage("description is required."),
       check("location").notEmpty().withMessage("location is required."),
@@ -35,10 +35,9 @@ module.exports = function (app) {
       jobsController.createOrUpdate
     );
 
-    const deleteJobs = "/api/jobs"
+    const deleteJobRoute = "/api/job/:id"
     app.delete(
-        deleteJobsAPI,
-        check("id").notEmpty().withMessage("id is required"),
+      deleteJobRoute,
         (req, res, next) => {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -50,11 +49,13 @@ module.exports = function (app) {
 
     )
 
-    const listJobsAPI = "/api/jobs"
-    app.get(listJobsAPI,
+    const listJobsRoute = "/api/job"
+    app.get(listJobsRoute,
         jobsController.listJobs
     );
 
 
     app.all(createUpdateJobsRoute, methodNotAllowed);
+    app.all(deleteJobRoute, methodNotAllowed);
+    app.all(listJobsRoute, methodNotAllowed);
 };
