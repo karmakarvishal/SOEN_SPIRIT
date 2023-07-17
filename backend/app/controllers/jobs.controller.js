@@ -1,5 +1,3 @@
-const { where } = require("sequelize");
-const { user } = require("../models");
 const db = require("../models");
 
 exports.createOrUpdate = async (req, res) => {

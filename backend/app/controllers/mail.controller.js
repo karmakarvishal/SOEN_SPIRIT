@@ -12,17 +12,26 @@ let transporter = nodemailer.createTransport({
     }
   });
 
-  let mailOptions = {
-    from: "karmakar922@gmail.com",
-    to: "karmakar922@gmail.com",
-    subject: 'Nodemailer Project',
-    text: 'Hi from your nodemailer project'
-  };
+  
 
-  transporter.sendMail(mailOptions, function(err, data) {
-    if (err) {
-      console.log("Error " + err);
-    } else {
-      console.log("Email sent successfully");
-    }
-  });
+exports.sendMail =  async(req,res)=>{
+    let mailOptions = {
+        from: "karmakar922@gmail.com",
+        to: req.body.to,
+        subject: req.body.subject,
+        text: req.body.text
+      };
+
+    transporter.sendMail(mailOptions, function(err, data) {
+        if (err) {
+          console.log("Error " + err);
+          res.status(200).json({Error:`${err}`});
+        } else {
+          console.log("Email sent successfully");
+          res.status(200).json({status:"Email sent successfully"})
+        }
+      })
+};
+
+
+  
