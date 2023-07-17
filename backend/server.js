@@ -4,6 +4,7 @@ const cors = require("cors");
 const config = require("./app/config/config.js");
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 
 const corsOptions = {
   origin: "*",
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 // api routes
 require("./app/routes/auth.routes")(app);
+require("./app/routes/attachment.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/candidate.routes")(app);
 require("./app/routes/job_application.routes")(app);
