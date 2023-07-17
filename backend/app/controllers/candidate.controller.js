@@ -3,6 +3,12 @@ const db = require("../models");
 exports.createOrUpdate = async (req, res) => {
     const transaction = await db.sequelize.transaction();
     try {
+        if (req.payload.role != "CANDIDATE") {
+            res
+            .status(400)
+            .json({ statusText: "Please create candidate profile from Candidate account." });
+            return;
+        }
         const userId = req.payload.id;
         const checkCandidate = await db.candidate.findOne({
             where: {
