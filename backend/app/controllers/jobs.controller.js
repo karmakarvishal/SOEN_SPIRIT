@@ -59,7 +59,7 @@ exports.createOrUpdate = async (req, res) => {
 exports.deleteJobs = async(req,res)=>{
     const transaction = await db.sequelize.transaction();
     try {
-        const id = req.payload.id;
+        const id = req.body.id;
         const checkJob = await db.job.findOne({
             where: {
               id: id
@@ -86,7 +86,7 @@ exports.deleteJobs = async(req,res)=>{
 exports.listJobs = async(req,res)=>{
 
     try {
-        const user_id = req.payload.user_id;
+        const user_id = req.body.user_id;
         let jobList = null;
         if(user_id) //In case of Employer
         {

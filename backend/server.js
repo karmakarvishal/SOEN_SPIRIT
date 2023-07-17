@@ -28,6 +28,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/attachment.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/candidate.routes")(app);
+require("./app/routes/jobs.routes")(app);
 require("./app/routes/job_application.routes")(app);
 require("./app/routes/employer.routes")(app);
 

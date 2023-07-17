@@ -18,7 +18,7 @@ module.exports = function (app) {
         res.status(405).json({ statusText: "Method not supported" });
 
     const createUpdateJobsRoute = "/api/jobs";
-    app.put(
+    app.post(
         createUpdateJobsRoute,
       check("type").notEmpty().withMessage("type is required."),
       check("title").notEmpty().withMessage("title is required."),
@@ -49,5 +49,12 @@ module.exports = function (app) {
         jobsController.deleteJobs
 
     )
+
+    const listJobsAPI = "/api/jobs"
+    app.get(listJobsAPI,
+        jobsController.listJobs
+    );
+
+
     app.all(createUpdateJobsRoute, methodNotAllowed);
 };
