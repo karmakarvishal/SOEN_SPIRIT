@@ -1,1 +1,163 @@
-<h1>{{message}}</h1>
+<div class="home-page-content container">
+    <div class="row" ng-if="loggedInUserDetails.role === 'EMPLOYER'">
+        <div class="col-md-12 text-left" style="margin-top: 25px;">
+            <h3>Employer Dashboard<button type="button" class="btn btn-default pull-right" ng-click="openJobListingModal()">Create Job Listing</button></h3>
+        </div>
+    </div>
+    <div class="row" ng-if="loggedInUserDetails.role === 'CANDIDATE'">
+        <div class="col-md-12 text-left" style="margin-top: 25px;">
+            <h3>Job Feed</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped" ng-show="homeEditObject.availableListings.length > 0"
+                style="margin-top: 25px;">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th ng-if="loggedInUserDetails.role === 'EMPLOYER'">Candidates</th>
+                        <th ng-if="loggedInUserDetails.role === 'EMPLOYER'"></th>
+                        <th ng-if="loggedInUserDetails.role === 'CANDIDATE'"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="lisitng in homeEditObject.availableListings">
+                        <td>{{lisitng.title}}</td>
+                        <td>{{lisitng.type}}</td>
+                        <td>{{lisitng.description}}</td>
+                        <td>{{lisitng.location}}</td>
+                        <td ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button" class="btn btn-default btn-xs"
+                                ng-click="candidateCountPopUp()">View</button></td>
+                        <td ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button"
+                                class="btn btn-secondary btn-xs"
+                                ng-click="updatejobListingModal(lisitng)">UPDATE</button>
+                            <button type="button" class="btn btn-danger btn-xs"
+                                ng-click="deletejobListing(lisitng)">DELETE</button>
+                        </td>
+                        <td ng-if="loggedInUserDetails.role === 'CANDIDATE'">
+                            <button type="button" class="btn btn-default btn-xs"
+                                ng-click="applyForJobPosting(lisitng)">Apply</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="no-available-listings text-center" ng-show="homeEditObject.availableListings.length == 0">
+                <img src="ui/assets/images/job.jpg">
+                <h4 ng-if="loggedInUserDetails.role === 'CANDIDATE'">Sorry, No job listings available at the moment</h4>
+                <h4 ng-if="loggedInUserDetails.role === 'EMPLOYER'">No jobs listed, create a new one now!</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" ng-if="!editJob">Create Job Lisiting</h5>
+                <h5 class="modal-title" ng-if="editJob">Update Job Lisiting</h5>
+                <button type="button" class="close modal-cross-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px; margin-right: 10px;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" ng-if="!editJob">
+                <label for="Type">Type</label>
+                <div class="user-select-radio">
+                    <div ng-repeat="job in homeEditObject.jobTypes">
+                        <label class="radio-inline">
+                            <input type="radio" ng-value="job.value"
+                                ng-model="homeEditObject.createListingObject.type"><span>{{job.key}}</span>
+                        </label>
+                    </div>
+                </div>
+                <label for="Title">Title</label>
+                <input type="text" placeholder="Title" ng-model="homeEditObject.createListingObject.title" />
+                <label for="Description">Description</label>
+                <textarea rows="3" placeholder="Description" ng-model="homeEditObject.createListingObject.description"
+                    id="Description"></textarea>
+                <label for="Location">Location</label>
+                <input type="text" placeholder="Location" ng-model="homeEditObject.createListingObject.location" />
+            </div>
+            <div class="modal-body" ng-if="editJob">
+                <label for="Type">Type</label>
+                <div class="user-select-radio">
+                    <div ng-repeat="job in homeEditObject.jobTypes">
+                        <label class="radio-inline">
+                            <input type="radio" ng-value="job.value"
+                                ng-model="homeEditObject.updateLisitingObject.type"><span>{{job.key}}</span>
+                        </label>
+                    </div>
+                </div>
+                <label for="Title">Title</label>
+                <input type="text" placeholder="Title" ng-model="homeEditObject.updateLisitingObject.title" />
+                <label for="Description">Description</label>
+                <textarea rows="3" placeholder="Description" ng-model="homeEditObject.updateLisitingObject.description"
+                    id="Description"></textarea>
+                <label for="Location">Location</label>
+                <input type="text" placeholder="Location" ng-model="homeEditObject.updateLisitingObject.location" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="saveJobListing()" ng-if="!editJob">SAVE</button>
+                <button type="button" class="btn btn-default" ng-click="saveJobListing()"
+                    ng-if="editJob">UPDATE</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="inviteCandidate" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Send Invitation</h5>
+                <button type="button" class="close modal-cross-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px; margin-right: 10px;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="candidate in candidates">
+                        <td>{{candidate.name}}</td>
+                        <td>{{candidate.email}}</td>
+                        <td><button type="button" class="btn btn-default btn-xs"
+                            ng-click="sendInvite(candidate)">Send Invite</button></td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="applyToListingsModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upload resume</h5>
+                <button type="button" class="close modal-cross-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px; margin-right: 10px;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="file" ng-model="file" accept=".pdf">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-click="uploadResume()" data-dismiss="modal">UPLOAD</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>

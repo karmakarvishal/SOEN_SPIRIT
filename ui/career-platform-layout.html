@@ -1,12 +1,22 @@
 <header class="site-header">
+    <div class="alert alert-danger alert-dismissible show" role="alert" ng-if="objValidation.show"
+        style="position: fixed; top: 14px; right: 10px;">
+        {{objValidation.message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="resetValidation()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="site-identity">
-        <h1><a href="#">Site Name</a></h1>
+        <img src="/ui/assets/images/Free_Sample_By_Wix_crop.png">
     </div>
     <nav class="site-navigation">
         <ul>
-            <li><a ui-sref="career-platform.home">Home</a></li>
-            <li><a ui-sref="career-platform.login">About</a></li>
-          </ul>
+            <span style="font-size: 15px;" ng-if="loggedInUserDetails.first_name">Welcome {{loggedInUserDetails.first_name}} {{loggedInUserDetails.last_name}}   </span>
+            <li ng-if="rootCareerPlatformObject.home"><a ui-sref="career-platform.home">Home</a></li>
+            <li ng-if="rootCareerPlatformObject.profile"><a ui-sref="career-platform.edit-profile">Profile</a></li>
+            <li ng-if="rootCareerPlatformObject.logout"><a><i class="fa fa-power-off logout-btn cursor-pointer" aria-hidden="true" ng-click="logout()"></i></a>
+            </li>
+        </ul>
     </nav>
 </header>
 <!--primary content-->

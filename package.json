@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.7.9",
+    "angular-jwt": "^0.1.11",
     "angular-ui-router": "^1.0.26",
     "oclazyload": "^1.1.0"
   }
