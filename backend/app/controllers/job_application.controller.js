@@ -1,4 +1,5 @@
 const db = require("../models");
+let nodemailer = require("nodemailer")
 
 exports.create = async (req, res) => {
     const transaction = await db.sequelize.transaction();
@@ -128,3 +129,100 @@ exports.retrieve = async (req, res) => {
         res.status(500).json({ statusText: "Internal server error occured" });
     }
 };
+
+
+exports.status = async (req, res) => {
+    const transaction = await db.sequelize.transaction();
+    try {
+        const jobApplication = await db.job_application.findOne({
+            where: {
+                id: req.body.job_application_id
+            }
+        });
+
+        if (jobApplication == null) {
+            res.status(400).json({ statusText: "Job application not found." });
+        }
+        
+        const oldStatus = jobApplication.dataValues.status;
+
+        const newStatus = req.body.status;
+
+        await db.job_application.update(
+            { status: newStatus },
+            { where: { id: req.body.job_application_id }, individualHooks: true },
+            { transaction }
+        );
+        transaction.commit();
+
+        if (oldStatus != newStatus) {
+            const candidateId = jobApplication.candidate_id;
+            const candidate = await db.candidate.findOne({
+                where: {
+                    id: candidateId
+                }
+            });
+            const user = await db.user.findOne({
+                where: {
+                    id: candidate.dataValues.user_id
+                }
+            });
+            const job = await db.job.findOne({
+                where: {
+                    id: jobApplication.dataValues.job_id
+                }
+            })
+            const email = user.dataValues.email;
+            const employer = await db.employer.findOne({
+                where: {
+                    user_id: job.dataValues.user_id
+                }
+            });
+            const company = employer.dataValues.company_name;
+
+            let transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  type: 'OAuth2',
+                  user: "karmakar922@gmail.com",
+                  pass: "vishalKarmakar123",
+                  clientId: '705251655934-7dck187fgb83ki37gurcvdbl0fgu0u4a.apps.googleusercontent.com',
+                  clientSecret: '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',
+                  refreshToken: '1//04iXKGEyCvTofCgYIARAAGAQSNwF-L9Irj00oe2Q8xL-_-QtW5OWmyjvj_EjvtJ_jfPDhSFeB6_EwWhivslCxZmFFp8VADDFZ_Dk'
+                }
+              });
+
+              let mailOptions = {
+                from: "karmakar922@gmail.com",
+                to: email,
+                subject: "The status for the job application having position " + job.dataValues.title +  " is changed to " + newStatus,
+                html: `<p>Hello ${user.dataValues.first_name},</p>
+
+                <p>Please find the details of your job application below:</p>
+                
+                <p>Job Details:</p>
+                
+                <ul>
+                    <li style="margin-left: 40px;">Company Name:&nbsp;<b>${company}</b></li>
+                    <li style="margin-left: 40px;">Position Title:&nbsp;<b>${job.dataValues.title}</b></li>
+                    <li style="margin-left: 40px;">Job Type:&nbsp;<b>${job.dataValues.type}</b></li>
+                    <li style="margin-left: 40px;">Job Location:&nbsp;<b>${job.dataValues.location}</b></li>
+                    <li style="margin-left: 40px;">Job Application Status:&nbsp;<b>${newStatus}</b></li>
+                </ul>`
+                
+              };
+
+            //   transporter.sendMail(mailOptions, function(err, data) {
+            //     if (err) {
+            //       console.log("Error " + err);
+            //       res.status(400).json({Error:`${err}`});
+            //     }
+            //   })
+        }
+        res.status(200).json({ statusText: "Status updated successfully."})
+    } catch (e) {
+        console.log(e);
+        await transaction.rollback();
+        res.status(500).json({ statusText: "Internal server error occured" });
+    }
+}
