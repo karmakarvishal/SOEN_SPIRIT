@@ -70,4 +70,10 @@ db.employer.hasOne(db.user, {
   foreignKey: { name: "id"},
   sourceKey: "user_id"
 });
+
+db.job.hasMany(db.job_application, {
+  as: "job_applications",
+  foreignKey: { name: "job_id" },
+  sourceKey: "id"
+})
 module.exports = db;
