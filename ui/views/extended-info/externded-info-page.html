@@ -1,0 +1,106 @@
+<div class="ext-info-ctn">
+    <h4>Please provide some more details to continue</h4>
+    <div class="container" ng-if="loggedInUserDetails.role === 'CANDIDATE'">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="first">Address Line</label>
+                    <input type="text" ng-model="extendedInfoObject.candidate.address_line1" class="form-control"
+                        placeholder="Address" id="Address">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="last">City</label>
+                    <input type="text" ng-model="extendedInfoObject.candidate.city" class="form-control"
+                        placeholder="City" id="city">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="company">Province</label>
+                    <input type="text" ng-model="extendedInfoObject.candidate.province" class="form-control"
+                        placeholder="Province" id="province">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="phone">Postal Code</label>
+                    <input type="text" ng-model="extendedInfoObject.candidate.postal_code" class="form-control"
+                        id="postal_code" placeholder="Postal Code">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="email">Phone</label>
+                    <input type="text" ng-model="extendedInfoObject.candidate.phone" class="form-control"
+                        id="postal_code" placeholder="Phone">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" ng-if="loggedInUserDetails.role === 'EMPLOYER'">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="first">Company Name</label>
+                    <input type="text" ng-model="extendedInfoObject.employer.company_name" class="form-control"
+                        placeholder="Company Name" id="company_name">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="last">Company Address</label>
+                    <input type="text" ng-model="extendedInfoObject.employer.company_address_line1" class="form-control"
+                        placeholder="Company Address" id="company_address_line1">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="city">Company City</label>
+                    <input type="text" ng-model="extendedInfoObject.employer.company_city" class="form-control"
+                        placeholder="Company City" id="company_city">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="province">Company Province</label>
+                    <input type="text" ng-model="extendedInfoObject.employer.company_province" class="form-control"
+                        id="company_province" placeholder="Company Province">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Postal">Company Postal Code</label>
+                    <input type="text" ng-model="extendedInfoObject.employer.company_postal_code" class="form-control"
+                        id="company_postal_code" placeholder="Company Postal Code">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="Phone">Company Phone</label>
+                    <input type="text" ng-model="extendedInfoObject.employer.company_phone" class="form-control"
+                        id="company_phone" placeholder="Company Phone">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container button-ctn">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-default" ng-click="saveExtendedDetails()">Continue <i
+                        class='fa fa-angle-double-right'></i></button>
+            </div>
+        </div>
+    </div>
+</div>
