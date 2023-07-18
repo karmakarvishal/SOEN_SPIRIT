@@ -96,18 +96,59 @@ exports.listJobs = async(req,res)=>{
         const user_id = req.payload.id;
         let jobList = null;
         if(req.payload.role == "CANDIDATE") {
-            jobList = await db.job.findAll();
+            jobList = await db.job.findAll({
+                include: [{
+                    model: db.job_application,
+                    as: 'job_applications',
+                    where: {
+                        candidate_id: req.payload.candidate_id
+                    },
+                    required: false,
+                    include: [
+                        {
+                            model: db.job_application_education,
+                            as: 'candidate_education'
+                        },
+                        {
+                            model: db.job_application_experience,
+                            as: "candidate_experience"
+                        },
+                        {
+                            model: db.candidate,
+                            as: "candidate"
+                        },
+                    ]
+                }],
+            });
         } else {
-            jobList = await db.job.findAll(
-                {where:{
+            jobList = await db.job.findAll({
+                include: [{
+                    model: db.job_application,
+                    as: 'job_applications',
+                    required: false,
+                    include: [
+                        {
+                            model: db.job_application_education,
+                            as: 'candidate_education'
+                        },
+                        {
+                            model: db.job_application_experience,
+                            as: "candidate_experience"
+                        },
+                        {
+                            model: db.candidate,
+                            as: "candidate"
+                        },
+                    ]
+                }],
+                where:{
                     user_id: user_id
-                }}
-            );
+                }
+            });
         }
         res.status(200).json(jobList);
     } catch (error) {
         console.log(error);
         res.status(500).json({statusText:"Internal server error occured"})
-        
     }
 }

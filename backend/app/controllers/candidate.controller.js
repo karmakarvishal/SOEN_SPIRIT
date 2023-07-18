@@ -69,7 +69,6 @@ exports.retrieve = async (req, res) => {
             id: req.params.id
         }
     });
-    console.log(candidate)
     if (candidate == null) {
         res.status(400).json({statusText: "Candidate not found."});
         return;
