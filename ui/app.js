@@ -1,1 +1,1 @@
-angular.module("myApp", ["ui.router", "oc.lazyLoad"]);
+angular.module("myApp", ["ui.router", "oc.lazyLoad", "angular-jwt"]);

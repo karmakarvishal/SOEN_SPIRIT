@@ -1,1 +1,45 @@
-<h4>{{message}}</h4>
+<div class="container box-container" id="container" style="margin-top: 5%;">
+    <div class="form-container sign-up-container">
+        <form>
+            <h1 style="font-size: 24px;">Create Account</h1>
+            <span>or use your email for registration</span>
+            <input type="text" placeholder="First Name" ng-model="careerZoneEditObject.signUpUser.first_name" />
+            <input type="text" placeholder="Last Name" ng-model="careerZoneEditObject.signUpUser.last_name" />
+            <input type="text" placeholder="Email" ng-model="careerZoneEditObject.signUpUser.email" />
+            <input type="password" placeholder="Password" ng-model="careerZoneEditObject.signUpUser.password" />
+            <div class="user-select-radio">
+                <div ng-repeat="role in careerZoneEditObject.userRoles">
+                    <label class="radio-inline">
+                        <input type="radio" ng-value="role.value"
+                            ng-model="careerZoneEditObject.signUpUser.role"><span>{{role.key}}</span>
+                    </label>
+                </div>
+            </div>
+            <button ng-click="signUp()">SIGN UP</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form>
+            <h1>Log in</h1>
+            <span>or use your account</span>
+            <input type="text" placeholder="Email" ng-model="careerZoneEditObject.logInUser.email" />
+            <input type="password" placeholder="Password" ng-model="careerZoneEditObject.logInUser.password" />
+
+            <button ng-click="logIn()">LOG IN</button>
+        </form>
+    </div>
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="logIn">LOG IN</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">SIGN UP</button>
+            </div>
+        </div>
+    </div>
+</div>
