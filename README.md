@@ -1,6 +1,13 @@
 # Spirit-Soen6011summer2023   
+
 ## Description:
-The Career Services Platform is a comprehensive online system designed to connect job-seeking students and employers, providing a streamlined process for finding and filling job positions. This platform serves as a centralized hub where students can showcase their portfolios and apply for job postings, while employers can post job offers, review candidate applications, and manage the hiring process. The platform offers convenience, efficiency, and personalized experiences for both job seekers and employers.
+The Career Services Platform is an integrated online solution that facilitates efficient and effective connections between students seeking employment and employers with job openings. This platform acts as a centralized hub, offering a wide range of features to streamline the process of finding and filling job positions.
+
+For students, the platform serves as a comprehensive showcase for their portfolios, allowing them to highlight their skills, experiences, and achievements. They can easily browse and apply for job postings, leveraging personalized search filters to find opportunities that align with their career goals. The platform also provides resources and tools to enhance their job-seeking journey, such as resume building assistance, interview preparation materials, and networking opportunities.
+
+On the employer side, the platform enables businesses to effortlessly post job offers and manage the entire hiring process. Employers can review candidate applications, access their portfolios, and efficiently evaluate their qualifications. The platform offers intuitive applicant tracking features, allowing employers to streamline their decision-making process and efficiently communicate with potential hires.
+
+By providing a convenient and centralized solution, the Career Services Platform offers enhanced efficiency and personalized experiences for both job seekers and employers. It empowers students to showcase their talents and connect with relevant job opportunities, while helping employers identify and attract top talent in a streamlined manner. Ultimately, this platform aims to bridge the gap between students and employers, fostering successful career outcomes for all parties involved.
 
 ### Key features: 
 
@@ -87,7 +94,7 @@ Throughout the project, it's essential to follow an agile development approach, 
   - File Upload (Specifically Resume Upload): 
       - The backend incorporates a file upload functionality, specifically for resume uploads. When users upload their resumes, the backend handles the process securely and efficiently. It utilizes a multipart form-data approach to receive and process file uploads. The uploaded resumes are then stored in a designated directory on the server or in a cloud storage service like *Amazon S3*.
 
-## Team Members and Roles(with Guthub IDs):
+## Team Members and Roles (with GitHub IDs):
 
 ### Jay Dhanani (40232469) 
   - Github username : jaydhanani99
