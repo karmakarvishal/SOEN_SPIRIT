@@ -116,7 +116,13 @@ exports.listJobs = async(req,res)=>{
                         },
                         {
                             model: db.candidate,
-                            as: "candidate"
+                            as: "candidate",
+                            include: [
+                                {
+                                    model: db.user,
+                                    as: "user"
+                                }
+                            ]
                         },
                     ]
                 }],
@@ -138,7 +144,13 @@ exports.listJobs = async(req,res)=>{
                         },
                         {
                             model: db.candidate,
-                            as: "candidate"
+                            as: "candidate",
+                            include: [
+                                {
+                                    model: db.user,
+                                    as: "user"
+                                }
+                            ]
                         },
                     ]
                 }],
