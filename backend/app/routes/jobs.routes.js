@@ -66,7 +66,7 @@ module.exports = function (app) {
     );
 
 
-    app.all(createUpdateJobsRoute, methodNotAllowed);
-    app.all(deleteJobRoute, methodNotAllowed);
-    app.all(listJobsRoute, methodNotAllowed);
+    // app.all(createUpdateJobsRoute, methodNotAllowed);
+    // app.all(deleteJobRoute, methodNotAllowed);
+    // app.all(listJobsRoute, methodNotAllowed);
 };
