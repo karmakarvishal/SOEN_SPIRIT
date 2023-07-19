@@ -14,8 +14,8 @@ module.exports = function (app) {
     app.use(auth.verifyToken);
 
     // The 405 handler
-    const methodNotAllowed = (req, res, next) =>
-        res.status(405).json({ statusText: "Method not supported" });
+    // const methodNotAllowed = (req, res, next) =>
+    //     res.status(405).json({ statusText: "Method not supported" });
 
     const createJobApplicationRoute = "/api/job/application";
     app.post(
@@ -52,7 +52,7 @@ module.exports = function (app) {
       },
       jobApplicationController.status
     );
-    app.all(createJobApplicationRoute, methodNotAllowed);
-    app.all(getJobApplicationRoute, methodNotAllowed);
-    app.all(changeStatus, methodNotAllowed);
+    // app.all(createJobApplicationRoute, methodNotAllowed);
+    // app.all(getJobApplicationRoute, methodNotAllowed);
+    // app.all(changeStatus, methodNotAllowed);
 };

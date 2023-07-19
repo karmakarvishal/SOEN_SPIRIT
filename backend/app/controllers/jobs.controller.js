@@ -80,6 +80,7 @@ exports.deleteJobs = async(req,res)=>{
             );
         } else {
             res.status(400).json({statusText: "No Job Found"});
+            return;
         }
         await transaction.commit()
         res.status(200).json({statusText: "Job is now deleted"});
