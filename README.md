@@ -1,32 +1,65 @@
 # Spirit-Soen6011summer2023   
-## Project Description:
-This project aims to develop a Career Services Application with a backend system using MySQL as the database technology. The backend is responsible for handling data storage, authentication, file uploads (specifically resume uploads), role-based authorization, and exposing high-level APIs for the front end. The frontend technologies used in this project include AngularJS, JavaScript, and jQuery.
+## Description:
+The Career Services Platform is a comprehensive online system designed to connect job-seeking students and employers, providing a streamlined process for finding and filling job positions. This platform serves as a centralized hub where students can showcase their portfolios and apply for job postings, while employers can post job offers, review candidate applications, and manage the hiring process. The platform offers convenience, efficiency, and personalized experiences for both job seekers and employers.
 
-###  Employer:
-- Account Creation/Registration: Employers can easily create an account or register on the platform.
-- Login: Employers can securely log in to their accounts to access the platform's features.
-- Browse Candidates: Employers can efficiently search and browse through a pool of candidates based on specific criteria.
-- Post Job Offers: Employers can post job openings and provide detailed descriptions of the positions available.
-- Candidate Selection: Employers can review and select candidates who have applied for a job offer to schedule interviews.
+### Key features: 
 
-### Student/Candidate:
-- Account Creation/Registration: Students can easily create an account or register on the platform.
-- Login: Students can securely log in to their accounts to access the platform's features.
-- Resume Building/Upload: Students  upload their resumes to showcase their skills and qualifications.
-- Browse and Apply for Job Offers: Students can explore various job postings and apply for positions that match their interests and qualifications.
-- Application Tracking: Students can keep track of their applications and monitor the progress of each application.
+1. User Registration and Login:
+   - Students, employers, and admin can create individual accounts using their email and password. These credentials provide secure access to the platform's features.
 
-### Admin:
-- User Profile Management: The admin has the authority to manage all user profiles.
-- Job Postings Management: The admin can oversee the job postings.
-- Tracking and Notifications: The admin can track the activities of both employers and students, ensuring a smooth user experience.
+2. Student/Candidate Profile Management:
+   - Students can create and modify their profiles, including uploading and/or building resumes, adding portfolio materials, and tailoring their profiles to match market requirements. This allows students to present their skills, education, and experience effectively.
 
-### Notifications:
-- Employer Notifications: Employers will receive instant notifications when students apply for their job postings, keeping them informed and facilitating prompt responses.
-- Student Notifications: Students will receive notifications when they are selected for an interview, ensuring they are aware of the opportunity.
-- By integrating these features and functionalities, the platform will provide a seamless experience for employers, students, and administrators, making the job searching and recruitment processes efficient and effective.
+3. Job Posting and Management:
+   - Employers can create and manage job posts, including job descriptions, required qualifications, and application deadlines. They have the flexibility to track and update their job postings throughout the hiring process.
 
-## Technologies:
+4. Job Search and Application:
+   - Students can browse and search for job offers based on various criteria, such as location, industry, or job type. They can submit applications directly through the platform, attaching relevant documents and tailored cover letters.
+
+5. Application Tracking:
+   - Students can track the status of their applications, ensuring they are informed about the progress of each job opportunity. They receive notifications when their applications are received, reviewed, or if they are selected for interviews.
+
+6. Candidate Selection and Interview Management:
+   - Employers can review candidate applications, shortlist potential candidates, and schedule interviews. They have tools to track and manage the hiring process efficiently.
+
+7. Admin Dashboard:
+   - The admin has access to a dedicated dashboard to manage user profiles, job postings, and track overall system activity. They can handle system configuration, user support, and resolve any issues that may arise.
+
+The Career Services Platform provides a user-friendly and intuitive interface accessible from PCs or mobile devices with an internet connection. The platform ensures the security of login credentials, protecting user information from unauthorized access. By leveraging this platform, job seekers can gain visibility and tailor their profiles, increasing their chances of securing suitable employment. Employers can efficiently search for qualified candidates, review applications, and streamline their hiring process. The platform simplifies the entire job search and recruitment cycle, benefitting both students and employers alike.
+
+## Approach:
+The project approach for developing the career services platform can be divided into several stages:
+1. Requirement Gathering:
+   - Understand the specific needs and objectives of the platform, such as the features and functionalities required for students, employers, and the admin. Identify the key user flows, interactions, and system requirements.
+     
+2. System Design:
+   - Create a system design that outlines the architecture of the platform. This includes database design, user interface design, and the overall system flow. Determine the technologies and frameworks that will be used for development.
+     
+3. Front-end Development:
+   - Implement the user interfaces for different user roles (students, employers, admin). Design and develop intuitive and user-friendly interfaces that allow users to easily navigate, update profiles, post jobs, and apply for jobs. The front-end development can utilize web technologies like AngularJS.
+     
+4. Back-end Development:
+   - Build the server-side logic and functionality that powers the platform. This includes user authentication, account creation, job posting and application management, notification systems, and data storage. Choose a suitable programming language and framework for the back-end development, such as Node.js with Express.
+     
+5. Database Implementation:
+    - Set up a database to store user information, job postings, applications, and other relevant data. Design the database schema and implement it using a suitable database management system (e.g., MySQL).
+      
+6. Integration and Testing:
+    - Integrate the front-end and back-end components, ensuring smooth communication and functionality between different parts of the platform. Perform thorough testing to identify and fix any bugs or issues. Conduct both unit testing (testing individual components) and integration testing (testing the entire system).
+      
+7. Deployment:
+    - Prepare the platform for deployment to a server or cloud hosting service. Configure the necessary infrastructure, such as setting up web servers, databases, and security measures. Ensure that the platform is scalable, secure, and able to handle the expected traffic.
+      
+8. User Training and Documentation:
+    - Develop user guides and documentation to help students, employers, and the admin understand how to use the platform effectively. Provide training or tutorials if necessary to familiarize users with the features and functionalities.
+      
+9. Maintenance and Support:
+    - Once the platform is live, provide ongoing maintenance and support to address any issues, add new features, and ensure the platform remains up-to-date and secure. Continuously gather user feedback and make improvements based on user needs and market trends.
+
+Throughout the project, it's essential to follow an agile development approach, involving regular communication with stakeholders, iterating on feedback, and prioritizing features based on their importance and impact.
+
+
+## Technologies Used:
 - Frontend:
     - The front end of the Career Services Application is built using AngularJS, JavaScript, and jQuery. AngularJS is a powerful JavaScript framework that provides a robust structure for building dynamic web applications. JavaScript is a fundamental programming language used for enhancing interactivity and adding custom functionalities. jQuery is a feature-rich JavaScript library that simplifies DOM manipulation, event handling, and AJAX interactions.
 - Backend:
@@ -54,7 +87,7 @@ This project aims to develop a Career Services Application with a backend system
   - File Upload (Specifically Resume Upload): 
       - The backend incorporates a file upload functionality, specifically for resume uploads. When users upload their resumes, the backend handles the process securely and efficiently. It utilizes a multipart form-data approach to receive and process file uploads. The uploaded resumes are then stored in a designated directory on the server or in a cloud storage service like *Amazon S3*.
 
-## Team Members and Roles:
+## Team Members and Roles(with Guthub IDs):
 
 ### Jay Dhanani (40232469) 
   - Role : Scrum Master and Developer
