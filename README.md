@@ -57,20 +57,26 @@ This project aims to develop a Career Services Application with a backend system
 ## Team Members and Roles:
 
 ### Jay Dhanani (40232469) 
+  - Github username : jaydhanani99
   - Role : Scrum Master and Developer
   - Expertise:  Front-End and Back-End Technologies
 ### Neha Deshmukh (40221804)
+  - Github username : dneha1210
   - Role : Project Manager and Developer
   - Expertise:  Project Management and Automated Testing
 ### Priyesh Bhalala (40217267)
+  - Github username : PriyeshBhalala105
   - Role : Product Owner and Developer
   - Expertise:  Front-End Technologies and Database Management 
 ### Simran Kaur (40221666)
+  - Github username : Simran-99
   - Role : Developer
   - Expertise:  Database Management and Back-End Technologies
 ### Vishal Karmakar (40220935)
+  - Github username : karmakarvishal
   - Role : Developer
   - Expertise: Back-End Technologies
 ### Vinay Sahrawat (40220936)
+  - Github username : sahrawatvinay
   - Role : Product Owner & Developer
   - Expertise: Front-End and Back-End Technologies
