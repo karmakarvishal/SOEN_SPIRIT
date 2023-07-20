@@ -224,7 +224,7 @@ angular.module("myApp")
       var file = document.getElementById('fileInput').files[0];
       // Create a new FormData object and append the file to it
       var formData = new FormData();
-      formData.append("file", file, "SEP - Spirit.postman_collection.json");
+      formData.append("file", file, file.name);
       var token = localStorage.getItem('jwt_token');
       var settings = {
         "url": "http://localhost:3000/api/attachment",
