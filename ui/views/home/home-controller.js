@@ -35,10 +35,82 @@ angular.module("myApp")
         { key: "Part Time", value: "PART-TIME" },
         { key: "Internship", value: "INTERNSHIP" },
         { key: "Contract", value: "CONTRACT" }
-      ]
+      ],
+      applicationStatus: [
+        { key: "Interview", value: "INTERVIEW" },
+        { key: "Offer", value: "OFFER" },
+        { key: "Hired", value: "HIRED" },
+        { key: "Rejected", value: "REJECTED" }
+      ],
+      currentStatus: "",
+      createJobApplicationObject: {
+        job_id: 0,
+        attachment_id: 0,
+        candidate_education: [
+          {
+            school_or_university: "",
+            degree: "",
+            field_of_study: "",
+            GPA: "",
+            from_date: "",
+            to_date: ""
+          }
+        ],
+        candidate_experience: [
+          {
+            job_title: "",
+            company: "",
+            location: "",
+            from_date: "",
+            to_date: "",
+            role_description: ""
+          }
+        ]
+      }
     };
-    //get all job listings created by employer
+    $scope.jobApplicationsDetails = {};
+    $scope.currentCandidateDetails = {};
+    $scope.isStatusChanged = false;
+    $scope.statusChanged = function (currentStatus, prevStatus) {
+      console.log(currentStatus, prevStatus);
+      if (currentStatus == null || currentStatus == prevStatus) {
+        $scope.isStatusChanged = false;
+      }
+      else {
+        $scope.isStatusChanged = true;
+      }
+    };
+    $scope.addNewEducation = function () {
+      $scope.homeEditObject.createJobApplicationObject.candidate_education.push({
+        school_or_university: "",
+        degree: "",
+        field_of_study: "",
+        GPA: "",
+        from_date: "",
+        to_date: ""
+      });
+    };
 
+    $scope.removeEducation = function () {
+      var lastItem = $scope.homeEditObject.createJobApplicationObject.candidate_education.length - 1;
+      $scope.homeEditObject.createJobApplicationObject.candidate_education.splice(lastItem);
+    };
+
+    $scope.addNewExperience = function () {
+      $scope.homeEditObject.createJobApplicationObject.candidate_experience.push({
+        job_title: "",
+        company: "",
+        location: "",
+        from_date: "",
+        to_date: "",
+        role_description: ""
+      });
+    };
+
+    $scope.removeExperience = function () {
+      var lastItem = $scope.homeEditObject.createJobApplicationObject.candidate_experience.length - 1;
+      $scope.homeEditObject.createJobApplicationObject.candidate_experience.splice(lastItem);
+    };
     $scope.openJobListingModal = function () {
       $scope.homeEditObject.createListingObject.job_id = 0;
       $scope.homeEditObject.createListingObject.type = "";
@@ -99,8 +171,9 @@ angular.module("myApp")
         });
     };
     getJobListings();
-    $scope.candidateCountPopUp = function () {
+    $scope.candidateCountPopUp = function (jobApplication) {
       $('#inviteCandidate').modal('show');
+      $scope.jobApplicationsDetails = jobApplication.job_applications; // stores multiple candidates displayed in a table
     };
     $scope.sendInvite = function (candidate) {
       var sendInvObject = {
@@ -117,17 +190,97 @@ angular.module("myApp")
           console.log(ex);
         });
     };
-    $scope.applyForJobPosting = function () {
+    $scope.showTab = function (tab) {
+      $scope.currentTab = tab;
+    };
+    $scope.applyForJobPosting = function (listing) {
+      $scope.homeEditObject.createJobApplicationObject.job_id = listing.id;
+      $scope.currentTab = "upload";
       $('#applyToListingsModal').modal('show');
     };
+    $scope.showApplicationTab = function (tab) {
+      $scope.currentApplicationTab = tab;
+    };
+    $scope.viewCandidateDetails = function (candidate) {
+      $scope.currentCandidateDetails = candidate;
+      $scope.currentApplicationTab = "upload";
+      $('#viewCandidateApplicationModal').modal('show');
+      console.log($scope.currentCandidateDetails);
+    };
     $scope.uploadResume = function () {
-      var file = $scope.file;
+      // var file = $scope.file;
+      // var formData = new FormData();
+      // formData.append('file', file);
+      // careerPlatformFactory.uploadResume(formData)
+      //   .then(function (result) {
+      //     console.log(result);
+      //     $('#inviteCandidate').modal('hide');
+      //   })
+      //   .catch(function (ex) {
+      //     console.log(ex);
+      //   });
+
+      // Get the selected file from the file input element
+      var file = document.getElementById('fileInput').files[0];
+      // Create a new FormData object and append the file to it
       var formData = new FormData();
-      formData.append('file', file);
-      careerPlatformFactory.uploadResume(formData)
+      formData.append("file", file, "SEP - Spirit.postman_collection.json");
+      var token = localStorage.getItem('jwt_token');
+      var settings = {
+        "url": "http://localhost:3000/api/attachment",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+          "Authorization": token
+        },
+        "processData": false,
+        "mimeType": "multipart/form-data",
+        "contentType": false,
+        "data": formData
+      };
+
+      $.ajax(settings).done(function (response) {
+        if (response) {
+          var res = JSON.parse(response);
+          $scope.homeEditObject.createJobApplicationObject.attachment_id = res.attachment_id;
+        }
+      });
+    };
+    $scope.submitApplication = function () {
+      console.log($scope.homeEditObject.createJobApplicationObject);
+      careerPlatformFactory.submitApplication($scope.homeEditObject.createJobApplicationObject)
         .then(function (result) {
-          console.log(result);
-          $('#inviteCandidate').modal('hide');
+          if (result) {
+            getJobListings();
+          }
+        })
+        .catch(function (ex) {
+          console.log(ex);
+        });
+    };
+    $scope.updateStatus = function (jobApplication) {
+      var updateObj = {
+        status: jobApplication.currentStatus,
+        job_application_id: jobApplication.id
+      };
+      careerPlatformFactory.updateStatus(updateObj)
+        .then(function (result) {
+          if (result) {
+            $('#inviteCandidate').modal('hide');
+            getJobListings();
+          }
+        })
+        .catch(function (ex) {
+          console.log(ex);
+        });
+    };
+    $scope.getResume = function (attachment_id) {
+      careerPlatformFactory.getResume(attachment_id)
+        .then(function (result) {
+          console.log("download resume :", result);
+          if (result) {
+            console.log("resume: ", result);
+          }
         })
         .catch(function (ex) {
           console.log(ex);
