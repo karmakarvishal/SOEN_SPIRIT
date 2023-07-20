@@ -428,3 +428,23 @@ textarea {
     font-size: 26px;
     font-weight: 600;
 }
+
+#applyToListingsModal .nav-tabs>li>a {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+#viewCandidateApplicationModal .nav-tabs>li>a {
+    cursor: pointer;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.uploaded-resume-cand{
+    text-align: center;
+}
+.uploaded-resume-cand a{
+    font-weight: 600;
+    color: #23527c !important;
+    text-decoration: underline !important; 
+    cursor: pointer;
+}

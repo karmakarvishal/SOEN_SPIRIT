@@ -72,8 +72,6 @@ angular.module("myApp", [])
                 if (isTokenExpired) {
                     $state.go("career-platform.login");
                 } else {
-                    var decodedToken = jwtHelper.decodeToken(storedjwtToken);
-                    $scope.setCurrentlyLoggedInUserDetails(decodedToken);
                     $scope.redirectToPagesAfterAuthentication(storedjwtToken);
                 }
             } else {
