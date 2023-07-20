@@ -306,7 +306,9 @@
                             style="position: relative; margin-top: 20px;">
                             <div class="uploaded-resume-cand">
                                 <p ng-if="currentCandidateDetails.attachment_id">
-                                    <p>Click <a ng-click="getResume(currentCandidateDetails.attachment_id)">here</a> to download and View resume</p>
+                                <p>Click <a
+                                        ng-href="http://localhost:3000/api/attachment/{{ currentCandidateDetails.attachment_id }}"
+                                        target="_blank">here</a> to download and View resume</p>
                                 </p>
                                 <div ng-if="!currentCandidateDetails.attachment_id || currentCandidateDetails.attachment_id == 0"
                                     class="no-resume">No resume has been uploaded.</div>
