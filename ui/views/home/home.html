@@ -1,7 +1,8 @@
 <div class="home-page-content container">
     <div class="row" ng-if="loggedInUserDetails.role === 'EMPLOYER'">
         <div class="col-md-12 text-left" style="margin-top: 25px;">
-            <h3>Employer Dashboard<button type="button" class="btn btn-default pull-right" ng-click="openJobListingModal()">Create Job Listing</button></h3>
+            <h3>Employer Dashboard<button type="button" class="btn btn-default pull-right"
+                    ng-click="openJobListingModal()">Create Job Listing</button></h3>
         </div>
     </div>
     <div class="row" ng-if="loggedInUserDetails.role === 'CANDIDATE'">
@@ -30,17 +31,31 @@
                         <td>{{lisitng.type}}</td>
                         <td>{{lisitng.description}}</td>
                         <td>{{lisitng.location}}</td>
-                        <td ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button" class="btn btn-default btn-xs"
-                                ng-click="candidateCountPopUp()">View</button></td>
+                        <td class="text-center" ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button"
+                                ng-if="lisitng.job_applications.length > 0" class="btn btn-default btn-xs"
+                                ng-click="candidateCountPopUp(lisitng)">View</button>
+                            <span class="text-center" ng-if="lisitng.job_applications.length == 0">-</span>
+                        </td>
                         <td ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button"
                                 class="btn btn-secondary btn-xs"
-                                ng-click="updatejobListingModal(lisitng)">UPDATE</button>
+                                ng-click="updatejobListingModal(lisitng)">Update</button>
                             <button type="button" class="btn btn-danger btn-xs"
-                                ng-click="deletejobListing(lisitng)">DELETE</button>
+                                ng-click="deletejobListing(lisitng)">Delete</button>
                         </td>
                         <td ng-if="loggedInUserDetails.role === 'CANDIDATE'">
-                            <button type="button" class="btn btn-default btn-xs"
-                                ng-click="applyForJobPosting(lisitng)">Apply</button>
+                            <button ng-if="lisitng.job_applications.length == 0" type="button"
+                                class="btn btn-default btn-xs" ng-click="applyForJobPosting(lisitng)">Apply</button>
+                            <span class="label label-default"
+                                ng-if="lisitng.job_applications[0].status == 'APPLIED'">{{lisitng.job_applications[0].status}}</span>
+                            <span class="label label-info"
+                                ng-if="lisitng.job_applications[0].status == 'INTERVIEW'">{{lisitng.job_applications[0].status}}</span>
+                            <span class="label label-primary"
+                                ng-if="lisitng.job_applications[0].status == 'OFFER'">{{lisitng.job_applications[0].status}}</span>
+                            <span class="label label-success"
+                                ng-if="lisitng.job_applications[0].status == 'HIRED'">{{lisitng.job_applications[0].status}}</span>
+                            <span class="label label-danger"
+                                ng-if="lisitng.job_applications[0].status == 'REJECTED'">{{lisitng.job_applications[0].status}}</span>
+
                         </td>
                     </tr>
                 </tbody>
@@ -103,13 +118,13 @@
                 <button type="button" class="btn btn-default" ng-click="saveJobListing()" ng-if="!editJob">SAVE</button>
                 <button type="button" class="btn btn-default" ng-click="saveJobListing()"
                     ng-if="editJob">UPDATE</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 <div id="inviteCandidate" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Send Invitation</h5>
@@ -118,26 +133,57 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-striped">
+                <table class="table table-striped" ng-show="jobApplicationsDetails.length > 0">
                     <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th></th>
-                      </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
-                      <tr ng-repeat="candidate in candidates">
-                        <td>{{candidate.name}}</td>
-                        <td>{{candidate.email}}</td>
-                        <td><button type="button" class="btn btn-default btn-xs"
-                            ng-click="sendInvite(candidate)">Send Invite</button></td>
-                      </tr>
+                        <tr ng-repeat="jobApplication in jobApplicationsDetails">
+                            <td>{{jobApplication.candidate.user.first_name}}
+                                {{jobApplication.candidate.user.last_name}}</td>
+                            <td>{{jobApplication.candidate.user.email}}</td>
+                            <td>
+                                <span class="label label-default"
+                                    ng-if="jobApplication.status == 'APPLIED'">{{jobApplication.status}}</span>
+                                <span class="label label-info"
+                                    ng-if="jobApplication.status == 'INTERVIEW'">{{jobApplication.status}}</span>
+                                <span class="label label-primary"
+                                    ng-if="jobApplication.status == 'OFFER'">{{jobApplication.status}}</span>
+                                <span class="label label-success"
+                                    ng-if="jobApplication.status == 'HIRED'">{{jobApplication.status}}</span>
+                                <span class="label label-danger"
+                                    ng-if="jobApplication.status == 'REJECTED'">{{jobApplication.status}}</span>
+                            </td>
+                            <td><button type="button" class="btn btn-default btn-xs"
+                                    ng-click="viewCandidateDetails(jobApplication)">View Profile</button></td>
+                            <td class="text-center">
+                                <select ng-model="jobApplication.currentStatus"
+                                    ng-change="statusChanged(jobApplication.currentStatus, jobApplication.status)"
+                                    style="max-width: 65%; padding: 4px; margin: 0px 5px;">
+                                    <option value="" disabled selected>Select status</option>
+                                    <option ng-repeat="status in homeEditObject.applicationStatus"
+                                        value="{{status.value}}">
+                                        {{status.key}}
+                                    </option>
+                                </select>
+                                <button type="button" ng-disabled="!isStatusChanged" class="btn btn-default btn-xs"
+                                    ng-click="updateStatus(jobApplication)">Confirm</button>
+                            </td>
+                        </tr>
                     </tbody>
-                  </table>
+                </table>
+                <div ng-show="jobApplicationsDetails.length == 0">
+                    <h4>Unfortunately, No candidate has applied for this job.</h4>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -146,17 +192,172 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Upload resume</h5>
+                <h5 class="modal-title">Fill up the details to submit your application</h5>
                 <button type="button" class="close modal-cross-btn" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="font-size: 25px; margin-right: 10px;">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <input type="file" ng-model="file" accept=".pdf">
+                <div id="tabs">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation" ng-class="{true: 'active', false: ''}[currentTab == 'upload']">
+                            <a ng-click="showTab('upload')">Upload Resume</a>
+                        </li>
+                        <li role="presentation" ng-class="{true: 'active', false: ''}[currentTab == 'education']">
+                            <a ng-click="showTab('education')">Education</a>
+                        </li>
+                        <li role="presentation" ng-class="{true: 'active', false: ''}[currentTab == 'experience']">
+                            <a ng-click="showTab('experience')">Experience</a>
+                        </li>
+                    </ul>
+                    <div class="app-content-ctn">
+                        <div ng-show="(currentTab == 'upload')" style="position: relative; margin-top: 20px;">
+                            <input type="file" id="fileInput" accept=".pdf">
+                            <button type="button" class="btn btn-success btn-sm" ng-click="uploadResume()"
+                                style="position: absolute; top: 8px; right: 15px;">UPLOAD</button>
+                        </div>
+
+                        <div ng-show="(currentTab == 'education')">
+                            <p>Please enter your educational background</p>
+                            <div class="education-details-ctn"
+                                data-ng-repeat="candidate in homeEditObject.createJobApplicationObject.candidate_education">
+                                <label for="som">School or University</label>
+                                <input type="text" placeholder="School or University"
+                                    ng-model="candidate.school_or_university" />
+                                <label for="Degree">Degree</label>
+                                <input type="text" placeholder="Degree" ng-model="candidate.degree" />
+                                <label for="Field of Study">Field of Study</label>
+                                <input type="text" placeholder="Field of Study" ng-model="candidate.field_of_study" />
+                                <label for="GPA">GPA</label>
+                                <input type="text" placeholder="GPA" ng-model="candidate.GPA" />
+                                <label for="fd">From Date</label>
+                                <input type="date" placeholder="From Date" ng-model="candidate.from_date" />
+                                <label for="To Date">To Date</label>
+                                <input type="date" placeholder="To Date" ng-model="candidate.to_date" />
+                            </div>
+                            <div class="edu-btn-ctn text-right"><button class="remove btn btn-default btn-sm"
+                                    ng-click="removeEducation()">-</button>
+                                <button class="addfields btn btn-default btn-sm" ng-click="addNewEducation()">+</button>
+                            </div>
+                        </div>
+
+                        <div ng-show="(currentTab == 'experience')">
+                            <p>Please enter your experience if any</p>
+                            <div class="experience-details-ctn"
+                                data-ng-repeat="candidate in homeEditObject.createJobApplicationObject.candidate_experience">
+                                <label for="jt">Job Title</label>
+                                <input type="text" placeholder="Job Title" ng-model="candidate.job_title" />
+                                <label for="Company">Company</label>
+                                <input type="text" placeholder="Company" ng-model="candidate.company" />
+                                <label for="Location">Location</label>
+                                <input type="text" placeholder="Location" ng-model="candidate.location" />
+                                <label for="rd">Role Description</label>
+                                <input type="text" placeholder="Role Description"
+                                    ng-model="candidate.role_description" />
+                                <label for="fd">From Date</label>
+                                <input type="date" placeholder="From Date" ng-model="candidate.from_date" />
+                                <label for="To Date">To Date</label>
+                                <input type="date" placeholder="To Date" ng-model="candidate.to_date" />
+                            </div>
+                            <div class="edu-btn-ctn text-right"><button class="remove btn btn-default btn-sm"
+                                    ng-click="removeExperience()">-</button>
+                                <button class="addfields btn btn-default btn-sm"
+                                    ng-click="addNewExperience()">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" ng-click="uploadResume()" data-dismiss="modal">UPLOAD</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+                <button type="button" class="btn btn-success" ng-click="submitApplication()" data-dismiss="modal">Submit
+                    Application</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="viewCandidateApplicationModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Candidate Details</h5>
+                <button type="button" class="close modal-cross-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px; margin-right: 10px;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="tabs">
+                    <ul class="nav nav-tabs">
+                        <li role="presentation"
+                            ng-class="{true: 'active', false: ''}[currentApplicationTab == 'upload']">
+                            <a ng-click="showApplicationTab('upload')">Uploaded Resume</a>
+                        </li>
+                        <li role="presentation"
+                            ng-class="{true: 'active', false: ''}[currentApplicationTab == 'education']">
+                            <a ng-click="showApplicationTab('education')">Education Details</a>
+                        </li>
+                        <li role="presentation"
+                            ng-class="{true: 'active', false: ''}[currentApplicationTab == 'experience']">
+                            <a ng-click="showApplicationTab('experience')">Experience Details</a>
+                        </li>
+                    </ul>
+                    <div class="app-content-ctn">
+                        <div ng-show="(currentApplicationTab == 'upload')"
+                            style="position: relative; margin-top: 20px;">
+                            <div class="uploaded-resume-cand">
+                                <p ng-if="currentCandidateDetails.attachment_id">
+                                    <p>Click <a ng-click="getResume(currentCandidateDetails.attachment_id)">here</a> to download and View resume</p>
+                                </p>
+                                <div ng-if="!currentCandidateDetails.attachment_id || currentCandidateDetails.attachment_id == 0"
+                                    class="no-resume">No resume has been uploaded.</div>
+                            </div>
+                        </div>
+
+                        <div ng-show="(currentApplicationTab == 'education')">
+                            <p>Educational background</p>
+                            <div class="education-details-ctn"
+                                data-ng-repeat="candidate in currentCandidateDetails.candidate_education">
+                                <label for="som">School or University</label>
+                                <input type="text" disabled placeholder="School or University"
+                                    ng-model="candidate.school_or_university" />
+                                <label for="Degree">Degree</label>
+                                <input type="text" disabled placeholder="Degree" ng-model="candidate.degree" />
+                                <label for="Field of Study">Field of Study</label>
+                                <input type="text" disabled placeholder="Field of Study"
+                                    ng-model="candidate.field_of_study" />
+                                <label for="GPA">GPA</label>
+                                <input type="text" disabled placeholder="GPA" ng-model="candidate.GPA" />
+                                <label for="fd">From Date</label>
+                                <input type="text" disabled placeholder="From Date" ng-model="candidate.from_date" />
+                                <label for="To Date">To Date</label>
+                                <input type="text" disabled placeholder="To Date" ng-model="candidate.to_date" />
+                            </div>
+                        </div>
+
+                        <div ng-show="(currentApplicationTab == 'experience')">
+                            <p>Past Experiences</p>
+                            <div class="experience-details-ctn"
+                                data-ng-repeat="candidate in currentCandidateDetails.candidate_experience">
+                                <label for="jt">Job Title</label>
+                                <input type="text" disabled placeholder="Job Title" ng-model="candidate.job_title" />
+                                <label for="Company">Company</label>
+                                <input type="text" disabled placeholder="Company" ng-model="candidate.company" />
+                                <label for="Location">Location</label>
+                                <input type="text" disabled placeholder="Location" ng-model="candidate.location" />
+                                <label for="rd">Role Description</label>
+                                <input type="text" disabled placeholder="Role Description"
+                                    ng-model="candidate.role_description" />
+                                <label for="fd">From Date</label>
+                                <input type="text" disabled placeholder="From Date" ng-model="candidate.from_date" />
+                                <label for="To Date">To Date</label>
+                                <input type="text" disabled placeholder="To Date" ng-model="candidate.to_date" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
