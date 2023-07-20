@@ -17,11 +17,13 @@ angular.module("myApp", [])
             };
             $scope.objValidation = {
                 show: false,
-                message: ""
+                message: "",
+                type: 0 // 1 for success, 2 for danger
             };
-            $scope.showToaster = function (message, flag) {
+            $scope.showToaster = function (message, flag, type) {
                 $scope.objValidation.message = message;
                 $scope.objValidation.show = flag;
+                $scope.objValidation.type = type;
                 $timeout(function () {
                     $scope.objValidation.show = false;
                     $scope.objValidation.message = "";

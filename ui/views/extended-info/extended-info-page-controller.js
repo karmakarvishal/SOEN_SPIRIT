@@ -33,6 +33,7 @@ angular.module("myApp")
         })
         .catch(function (ex) {
           console.log(ex);
+          $scope.showToaster(ex.statusText, true, 2);
         });
     }
     $scope.saveExtendedDetails = function () {
@@ -47,6 +48,7 @@ angular.module("myApp")
           })
           .catch(function (ex) {
             console.log(ex);
+            $scope.showToaster(ex.statusText, true, 2);
           });
       }
       else if ($scope.loggedInUserDetails.role == "CANDIDATE") {
@@ -59,6 +61,7 @@ angular.module("myApp")
           })
           .catch(function (ex) {
             console.log(ex);
+            $scope.showToaster(ex.statusText, true, 2);
           });
       }
     };
