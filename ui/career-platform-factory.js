@@ -38,10 +38,8 @@ angular.module("myApp").factory("careerPlatformFactory", ["$http", "$q", "jwtHel
         var deferred = $q.defer();
         /* Local callback for success */
         var createSuccess = function (result) {
-            // Retrieve the JWT token from the response
-            var jwtToken = result.data.token;
-            // Add the JWT token to the authorization header for future requests
-            $http.defaults.headers.common.Authorization = jwtToken;
+            // Retrieve the JWT token from the response and store in local storage
+            localStorage.setItem('jwt_token', result.data.token);
             /* Resolve the promise */
             deferred.resolve(result.data);
         };
@@ -227,6 +225,62 @@ angular.module("myApp").factory("careerPlatformFactory", ["$http", "$q", "jwtHel
         return deferred.promise;
     };
 
+    factory.submitApplication = function (applicationDetailsObject) {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.post(apiPath + "/job/application", applicationDetailsObject)
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
+
+    factory.updateStatus = function (updateStatusObject) {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.put(apiPath + "/job/application/status", updateStatusObject)
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
+
+    factory.getResume = function (id) {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.get(apiPath + "/attachment/" + id)
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
 
     return factory;
 }]);

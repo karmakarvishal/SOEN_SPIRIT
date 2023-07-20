@@ -58,9 +58,8 @@ angular.module("myApp")
         careerPlatformFactory.logInUser($scope.careerZoneEditObject.logInUser)
           .then(function (result) {
             if (result) {
-              //store jwt token in localstorage
+              localStorage.setItem('creds', JSON.stringify($scope.careerZoneEditObject.logInUser));
               //redirect to different pages after login
-              localStorage.setItem('jwt_token', result.token);
               $scope.redirectToPagesAfterAuthentication(result.token);
             }
           })

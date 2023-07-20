@@ -23,6 +23,18 @@ angular.module("myApp")
         company_phone: ""
       }
     };
+    function updateTokenAndLoggedInUserDetails() {
+      var userCreds = JSON.parse(localStorage.getItem('creds'));
+      careerPlatformFactory.logInUser(userCreds)
+        .then(function (result) {
+          if (result) {
+            $scope.redirectToPagesAfterAuthentication(result.token);
+          }
+        })
+        .catch(function (ex) {
+          console.log(ex);
+        });
+    }
     $scope.saveExtendedDetails = function () {
       //call api to save extended details and go to home page
       if ($scope.loggedInUserDetails.role == "EMPLOYER") {
@@ -30,7 +42,8 @@ angular.module("myApp")
         careerPlatformFactory.createOrUpdateEmployer($scope.extendedInfoObject.employer)
           .then(function (result) {
             console.log("createOrUpdateEmployer : ", result);
-            $state.go("career-platform.home");
+            //Api call to get token and update it in local storage, redirect from root controller
+            updateTokenAndLoggedInUserDetails();
           })
           .catch(function (ex) {
             console.log(ex);
@@ -41,7 +54,8 @@ angular.module("myApp")
         careerPlatformFactory.createOrUpdateCandidate($scope.extendedInfoObject.candidate)
           .then(function (result) {
             console.log("createOrUpdateCandidate : ", result);
-            $state.go("career-platform.home");
+            //Api call to get token and update it in local storage, redirect from root controller
+            updateTokenAndLoggedInUserDetails();
           })
           .catch(function (ex) {
             console.log(ex);
