@@ -50,6 +50,7 @@ angular.module("myApp")
           })
           .catch(function (ex) {
             console.log(ex);
+            $scope.showToaster(ex.statusText, true, 2);
           });
       }
     };
@@ -65,6 +66,7 @@ angular.module("myApp")
           })
           .catch(function (ex) {
             console.log(ex);
+            $scope.showToaster(ex.statusText, true, 2);
           });
       }
     };
