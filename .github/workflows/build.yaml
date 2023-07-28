@@ -21,4 +21,27 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Build application
+        run: npm run build
 
+  deploy-to-staging:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to staging
+        run: npm run deploy:staging
+
+  deploy-to-production:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to production
+        run: npm run deploy:production
