@@ -14,5 +14,8 @@
     "angular-jwt": "^0.1.11",
     "angular-ui-router": "^1.0.26",
     "oclazyload": "^1.1.0"
-  }
+  },
+  "devDependencies": {
+  "jest": "^27.1.0"
+}
 }
