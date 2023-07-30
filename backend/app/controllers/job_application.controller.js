@@ -279,7 +279,7 @@ exports.lastApplicationInformation = async (req, res) => {
                 .json({ statusText: "Last job application not found." });
             return;
     }
-    const education = await db.job_application_education.findOne({
+    const education = await db.job_application_education.findAll({
         where: {
             job_application_id: jobApplication.id
         }
@@ -292,7 +292,7 @@ exports.lastApplicationInformation = async (req, res) => {
             return;
     }
 
-    const experience = await db.job_application_experience.findOne({
+    const experience = await db.job_application_experience.findAll({
         where: {
             job_application_id: jobApplication.id
         }
