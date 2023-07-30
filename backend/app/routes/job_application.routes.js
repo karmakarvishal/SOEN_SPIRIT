@@ -52,7 +52,17 @@ module.exports = function (app) {
       },
       jobApplicationController.status
     );
-    // app.all(createJobApplicationRoute, methodNotAllowed);
-    // app.all(getJobApplicationRoute, methodNotAllowed);
-    // app.all(changeStatus, methodNotAllowed);
+
+    const lastEduExp = "/api/job/last/info";
+    app.get(
+      lastEduExp,
+      (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+          return res.status(406).json({ statusText: errors.array()[0]?.msg });
+        }
+        next();
+      },
+      jobApplicationController.lastApplicationInformation
+    );
 };
