@@ -54,6 +54,22 @@ jobs:
           timeout: 1h
           port: 8080
           ngrok_authtoken: 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_NODE_ENV: "development"
+          envkey_PORT: 3000
+          envkey_DB_HOST: "3.135.68.211"
+          envkey_DB_USER: "root"
+          envkey_DB_PASS: "root"
+          envkey_DB_PORT: 3306
+          envkey_DB_NAME: "spirit"
+          some_other_variable: foobar
+          directory: backend
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
       #- name: Deploy backend
 
        
