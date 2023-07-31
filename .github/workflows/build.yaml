@@ -21,6 +21,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+          cd ..
+
       # - name: Run tests
       #   run: npm test
 
@@ -40,6 +46,12 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+          cd ..
 
       # - name: Run tests
       #   run: npm test
@@ -64,7 +76,11 @@ jobs:
           file_name: .env
           fail_on_empty: false
           sort_keys: false
-      #- name: Deploy backend
+      - name: Deploy backend
+        run: |
+          cd backend
+          npm run dev &
+          cd ..
       - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
         with:
           timeout: 1h
