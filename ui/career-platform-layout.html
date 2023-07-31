@@ -1,13 +1,13 @@
 <header class="site-header">
     <div class="alert alert-success alert-dismissible show" role="alert"
-        ng-if="objValidation.show && objValidation.type == 1" style="position: fixed; top: 14px; right: 10px;">
+        ng-show="objValidation.show && objValidation.type == 1" style="position: fixed; top: 14px; right: 10px;">
         {{objValidation.message}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="resetValidation()">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="alert alert-danger alert-dismissible show" role="alert"
-        ng-if="objValidation.show && objValidation.type == 2" style="position: fixed; top: 14px; right: 10px;">
+        ng-show="objValidation.show && objValidation.type == 2" style="position: fixed; top: 14px; right: 10px;">
         {{objValidation.message}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="resetValidation()">
             <span aria-hidden="true">&times;</span>
