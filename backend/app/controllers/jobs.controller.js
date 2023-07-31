@@ -96,7 +96,7 @@ exports.listJobs = async(req,res)=>{
     try {
         const user_id = req.payload.id;
         let jobList = null;
-        if(req.payload.role == "CANDIDATE") {
+        if(req.payload.role == "CANDIDATE" || req.payload.role == "ADMIN") {
             jobList = await db.job.findAll({
                 include: [{
                     model: db.job_application,

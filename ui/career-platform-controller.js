@@ -33,13 +33,15 @@ angular.module("myApp", [])
                 topNavVisibility: {
                     logout: false,
                     home: false,
-                    profile: false
+                    profile: false,
+                    user: false
                 }
             };
-            $scope.setTopNavVisibility = function (home, profile, logout) {
+            $scope.setTopNavVisibility = function (home, profile, logout, user) {
                 $scope.rootCareerPlatformObject.home = home;
                 $scope.rootCareerPlatformObject.profile = profile;
                 $scope.rootCareerPlatformObject.logout = logout;
+                $scope.rootCareerPlatformObject.user = user;
             };
             $scope.redirectToPagesAfterAuthentication = function (token) {
                 var decodedToken = jwtHelper.decodeToken(token);
@@ -64,6 +66,10 @@ angular.module("myApp", [])
                         $state.go("career-platform.home");
                     }
                 }
+                else { 
+                    //go to home screen
+                    $state.go("career-platform.home");
+                }
             };
             var storedjwtToken = localStorage.getItem('jwt_token');
             if (storedjwtToken) {
@@ -80,7 +86,7 @@ angular.module("myApp", [])
                 $state.go("career-platform.login");
             }
             $scope.logout = function () {
-                $scope.setTopNavVisibility(false, false, false);
+                $scope.setTopNavVisibility(false, false, false, false);
                 $scope.loggedInUserDetails = {};
                 localStorage.clear();
                 $state.go("career-platform.login");

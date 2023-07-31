@@ -1,7 +1,7 @@
 angular.module("myApp")
   .controller("editProfileController", ["$scope", "$stateParams", "$state", "careerPlatformFactory", function ($scope, $stateParams, $state, careerPlatformFactory) {
     if ($scope.loggedInUserDetails) {
-      $scope.setTopNavVisibility(true, true, true);
+      $scope.setTopNavVisibility(true, true, true, false);
     }
     else {
       $state.go("career-platform.login");
