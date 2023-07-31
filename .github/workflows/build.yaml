@@ -71,15 +71,16 @@ jobs:
           envkey_DB_PASS: "root"
           envkey_DB_PORT: 3306
           envkey_DB_NAME: "spirit"
+          envkey_JWT_SECRET_KEY: "b3d990857293d72f44f612294f10a9d242f68718cad5b99f1477154156c9d86c"
           some_other_variable: foobar
-          directory: ${{ env.HOME }}/backend/
+          directory: backend/
           file_name: .env
           fail_on_empty: false
           sort_keys: false
       - name: Deploy backend
         run: |
-          echo ${{ env.HOME }}
           cd backend
+          cat .env
           npm run dev &
           cd ..
       - name: Install ngrok
