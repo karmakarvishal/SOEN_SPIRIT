@@ -90,7 +90,7 @@ jobs:
       - name: Create reverse SSH tunnel with ngrok
         run: |
           # Start ngrok to create the reverse SSH tunnel
-          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain=regular-seagull-ultimately.ngrok-free.app
+          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain regular-seagull-ultimately.ngrok-free.app
       # - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
       #   with:
       #     timeout: 1h
