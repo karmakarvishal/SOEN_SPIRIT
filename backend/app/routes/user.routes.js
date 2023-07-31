@@ -35,7 +35,7 @@ module.exports = function (app) {
     userController.update
   );
 
-  app.get(userController.getUsers);
-  app.delete(userController.deleteUser);
+  app.get(updateUserRoute,userController.getUsers);
+  app.delete(updateUserRoute,userController.deleteUser);
   app.all(updateUserRoute, methodNotAllowed);
 };

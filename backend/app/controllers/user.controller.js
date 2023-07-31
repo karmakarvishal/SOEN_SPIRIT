@@ -6,7 +6,7 @@ exports.login = (req, res) => {
   
 
 exports.update = async (req, res) => {
-    const userId = req.payload.id;
+    const userId = req.body.id;
     const user = await db.user.findOne({
       where: {
         id: userId
@@ -57,7 +57,14 @@ exports.update = async (req, res) => {
   };
 
 exports.getUsers = async (req,res) => {
-  const userList = await db.user.findAll();
+  const userList = await db.user.findAll({
+    where: {
+      [Op.or]: [
+        { role: 'CANDIDATE' },
+        { role: 'EMPLOYER' }
+      ]
+    }
+  });
 
   if (userList == null) {
     res
@@ -70,7 +77,7 @@ exports.getUsers = async (req,res) => {
 
 
 exports.deleteUser = async (req,res) => {
-  const user = req.payload.id;
+  const user = req.body.id;
   const count = await user.destroy({ where: { id: user } });
   res.status(200).json({count});
 }
