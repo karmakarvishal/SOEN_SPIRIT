@@ -7,6 +7,8 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 
 // Add headers
+
+app.use(cors());
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect
@@ -25,7 +27,6 @@ app.use(function (req, res, next) {
   // Pass to next layer of middleware
   next();
 });
-app.use(cors());
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
