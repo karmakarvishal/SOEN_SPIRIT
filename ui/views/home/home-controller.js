@@ -1,5 +1,5 @@
 angular.module("myApp")
-  .controller("HomeController", ["$scope", "$stateParams", "$state", "careerPlatformFactory", function ($scope, $stateParams, $state, careerPlatformFactory) {
+  .controller("HomeController", ["$scope", "$stateParams", "$state", "careerPlatformFactory", "$timeout", function ($scope, $stateParams, $state, careerPlatformFactory, $timeout) {
     $scope.editJob = false;
     if ($scope.loggedInUserDetails) {
       $scope.setTopNavVisibility(true, true, true);
@@ -243,8 +243,12 @@ angular.module("myApp")
         if (response) {
           var res = JSON.parse(response);
           $scope.homeEditObject.createJobApplicationObject.attachment_id = res.attachment_id;
+          $scope.showTab("education");
         }
       });
+      $timeout(function () {
+        $scope.showToaster("Resume uploaded successfully.", true, 1);
+      }, 1200);
     };
     $scope.submitApplication = function () {
       console.log($scope.homeEditObject.createJobApplicationObject);
@@ -256,6 +260,7 @@ angular.module("myApp")
         })
         .catch(function (ex) {
           console.log(ex);
+          $scope.showToaster("Please upload resume and Fill atleast one Education and Experience details", true, 2);
         });
     };
     $scope.updateStatus = function (jobApplication) {
