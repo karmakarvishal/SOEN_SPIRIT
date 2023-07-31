@@ -90,7 +90,7 @@ jobs:
       - name: Create reverse SSH tunnel for backend
         run: |
           # Start ngrok to create the reverse SSH tunnel
-          ./ngrok http 8080 --authtoken 2TM2H8LoAzHoI7KwliiD3mWNFp6_vcFH2ZFn2c49aZ3ScpAd --domain regular-dory-golden.ngrok-free.app --log stdout &
+          ./ngrok http 3000 --authtoken 2TM2H8LoAzHoI7KwliiD3mWNFp6_vcFH2ZFn2c49aZ3ScpAd --domain regular-dory-golden.ngrok-free.app --log stdout &
       - name: Create reverse SSH tunnel for frontend
         run: |
           # Start ngrok to create the reverse SSH tunnel
