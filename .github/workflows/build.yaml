@@ -47,7 +47,7 @@ jobs:
       - name: Deploy frontend
         run: |
           npm install -g http-server
-          http-server -c-1 -a localhost -p 8080
+          http-server -c-1 -a 0.0.0.0 -p 8080 &
       #- name: Deploy backend
 
        
