@@ -1,4 +1,6 @@
 const db = require("../models");
+const { Op } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
 exports.login = (req, res) => {
     res.status(200).send("Public Content.");
@@ -31,7 +33,8 @@ exports.update = async (req, res) => {
       updatedUser.email = req.body.email;
     }
     if (req.body.password) {
-      updatedUser.password = req.body.password;
+      const passwordHash = await bcrypt.hash(req.body.password, 10);
+      updatedUser.password = passwordHash;
     }
     if (req.body.role) {
       updatedUser.role = req.body.role;
@@ -77,8 +80,8 @@ exports.getUsers = async (req,res) => {
 
 
 exports.deleteUser = async (req,res) => {
-  const user = req.body.id;
-  const count = await user.destroy({ where: { id: user } });
+  const userId = req.params.id;
+  const count = await db.user.destroy({ where: { id: userId } });
   res.status(200).json({count});
 }
 

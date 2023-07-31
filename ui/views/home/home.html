@@ -10,6 +10,11 @@
             <h3>Job Feed</h3>
         </div>
     </div>
+    <div class="row" ng-if="loggedInUserDetails.role === 'ADMIN'">
+        <div class="col-md-12 text-left" style="margin-top: 25px;">
+            <h3>Job listings posted by all the employers</h3>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-12">
             <table class="table table-striped" ng-show="homeEditObject.availableListings.length > 0"
@@ -20,9 +25,11 @@
                         <th>Type</th>
                         <th>Description</th>
                         <th>Location</th>
-                        <th ng-if="loggedInUserDetails.role === 'EMPLOYER'">Candidates</th>
-                        <th ng-if="loggedInUserDetails.role === 'EMPLOYER'"></th>
-                        <th ng-if="loggedInUserDetails.role === 'CANDIDATE'"></th>
+                        <th class="text-center" ng-if="loggedInUserDetails.role === 'EMPLOYER'">Candidates</th>
+                        <th ng-if="loggedInUserDetails.role === 'EMPLOYER'">
+                        </th>
+                        <th ng-if="loggedInUserDetails.role === 'CANDIDATE' || loggedInUserDetails.role === 'ADMIN'">
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,13 +38,14 @@
                         <td>{{lisitng.type}}</td>
                         <td>{{lisitng.description}}</td>
                         <td>{{lisitng.location}}</td>
-                        <td class="text-center" ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button"
-                                ng-if="lisitng.job_applications.length > 0" class="btn btn-default btn-xs"
-                                ng-click="candidateCountPopUp(lisitng)">View</button>
+                        <td class="text-center"
+                            ng-if="loggedInUserDetails.role === 'EMPLOYER'">
+                            <button type="button" ng-if="lisitng.job_applications.length > 0"
+                                class="btn btn-default btn-xs" ng-click="candidateCountPopUp(lisitng)">View</button>
                             <span class="text-center" ng-if="lisitng.job_applications.length == 0">-</span>
                         </td>
-                        <td ng-if="loggedInUserDetails.role === 'EMPLOYER'"><button type="button"
-                                class="btn btn-secondary btn-xs"
+                        <td ng-if="loggedInUserDetails.role === 'EMPLOYER'  || loggedInUserDetails.role === 'ADMIN'">
+                            <button type="button" class="btn btn-secondary btn-xs"
                                 ng-click="updatejobListingModal(lisitng)">Update</button>
                             <button type="button" class="btn btn-danger btn-xs"
                                 ng-click="deletejobListing(lisitng)">Delete</button>
@@ -55,14 +63,14 @@
                                 ng-if="lisitng.job_applications[0].status == 'HIRED'">{{lisitng.job_applications[0].status}}</span>
                             <span class="label label-danger"
                                 ng-if="lisitng.job_applications[0].status == 'REJECTED'">{{lisitng.job_applications[0].status}}</span>
-
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div class="no-available-listings text-center" ng-show="homeEditObject.availableListings.length == 0">
                 <img src="ui/assets/images/job.jpg">
-                <h4 ng-if="loggedInUserDetails.role === 'CANDIDATE'">Sorry, No job listings available at the moment</h4>
+                <h4 ng-if="loggedInUserDetails.role === 'CANDIDATE' || loggedInUserDetails.role === 'ADMIN'">Sorry, No
+                    job listings available at the moment</h4>
                 <h4 ng-if="loggedInUserDetails.role === 'EMPLOYER'">No jobs listed, create a new one now!</h4>
             </div>
         </div>
@@ -115,9 +123,9 @@
                 <input type="text" placeholder="Location" ng-model="homeEditObject.updateLisitingObject.location" />
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" ng-click="saveJobListing()" ng-if="!editJob">SAVE</button>
+                <button type="button" class="btn btn-default" ng-click="saveJobListing()" ng-if="!editJob">Save</button>
                 <button type="button" class="btn btn-default" ng-click="saveJobListing()"
-                    ng-if="editJob">UPDATE</button>
+                    ng-if="editJob">Update</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>

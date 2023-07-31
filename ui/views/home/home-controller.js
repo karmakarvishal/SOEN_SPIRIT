@@ -2,7 +2,13 @@ angular.module("myApp")
   .controller("HomeController", ["$scope", "$stateParams", "$state", "careerPlatformFactory", "$timeout", function ($scope, $stateParams, $state, careerPlatformFactory, $timeout) {
     $scope.editJob = false;
     if ($scope.loggedInUserDetails) {
-      $scope.setTopNavVisibility(true, true, true);
+      var usersNav = false;
+      var profileNav = true;
+      if ($scope.loggedInUserDetails.role == "ADMIN") {
+        usersNav = true;
+        profileNav = false;
+      }
+      $scope.setTopNavVisibility(true, profileNav, true, usersNav);
     }
     else {
       $state.go("career-platform.login");
@@ -45,7 +51,6 @@ angular.module("myApp")
       currentStatus: "",
       createJobApplicationObject: {
         job_id: 0,
-        attachment_id: 0,
         candidate_education: [
           {
             school_or_university: "",
@@ -120,6 +125,29 @@ angular.module("myApp")
       $scope.editJob = false;
       $('#myModal').modal('show');
     };
+    
+    function checkPreviousEducationAndExperienceDetails() {
+      careerPlatformFactory.getPreviousInfo()
+        .then(function (result) {
+          if (result.education.length > 0) {
+            result.education.forEach(element => {
+              element.from_date = new Date(element.from_date);
+              element.to_date = new Date(element.from_date);
+            });
+            $scope.homeEditObject.createJobApplicationObject.candidate_education = result.education;
+          }
+          if (result.experience.length > 0) {
+            result.experience.forEach(element => {
+              element.from_date = new Date(element.from_date);
+              element.to_date = new Date(element.from_date);
+            });
+            $scope.homeEditObject.createJobApplicationObject.candidate_experience = result.experience;
+          }
+        })
+        .catch(function (ex) {
+          console.log(ex);
+        });
+    }
     function getJobListings() {
       careerPlatformFactory.getJobListings()
         .then(function (result) {
@@ -196,6 +224,7 @@ angular.module("myApp")
     $scope.applyForJobPosting = function (listing) {
       $scope.homeEditObject.createJobApplicationObject.job_id = listing.id;
       $scope.currentTab = "upload";
+      checkPreviousEducationAndExperienceDetails();
       $('#applyToListingsModal').modal('show');
     };
     $scope.showApplicationTab = function (tab) {

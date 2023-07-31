@@ -1,0 +1,82 @@
+<div class="home-page-content container">
+    <div class="row">
+        <div class="col-md-12 text-left" style="margin-top: 25px;">
+            <h3>All active users of Career Zone</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped" ng-show="userEditObject.availableUsers.length > 0"
+                style="margin-top: 25px;">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="user in userEditObject.availableUsers">
+                        <td>{{user.first_name}}</td>
+                        <td>{{user.last_name}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <span class="label label-success" ng-if="user.role == 'CANDIDATE'">{{user.role}}</span>
+                            <span class="label label-info" ng-if="user.role == 'EMPLOYER'">{{user.role}}</span>
+                        </td>
+                        <td><button type="button" class="btn btn-secondary btn-xs"
+                                ng-click="updateUserModal(user)">Update</button>
+                            <button type="button" class="btn btn-danger btn-xs"
+                                ng-click="deleteUser(user)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="no-available-listings text-center" ng-show="userEditObject.availableUsers.length == 0">
+                <img src="ui/assets/images/job.jpg">
+                <h4>No users available</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="updateUserModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update user details</h5>
+                <button type="button" class="close modal-cross-btn" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 25px; margin-right: 10px;">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="Type">Role</label>
+                <div class="user-select-radio">
+                    <div ng-repeat="role in userEditObject.userRoles">
+                        <label class="radio-inline">
+                            <input type="radio" ng-value="role.value"
+                                ng-model="userEditObject.updateUserObject.role"><span>{{role.key}}</span>
+                        </label>
+                    </div>
+                </div>
+                <label for="First Name">First Name</label>
+                <input type="text" placeholder="First Name" ng-model="userEditObject.updateUserObject.first_name" />
+                <label for="Last Name">Last Name</label>
+                <input type="text" placeholder="Last Name" ng-model="userEditObject.updateUserObject.last_name" />
+                <label for="Email">Email</label>
+                <input type="text" placeholder="Email" ng-model="userEditObject.updateUserObject.email" />
+                <label for="Password">Password</label>
+                <span class="pull-right"><input type="checkbox" ng-model="userEditObject.isSetNewPswd"
+                        style="position: relative; top: 2px;">
+                    <small style="font-size: 10px;"><i>*Set a new password</i></small></span>
+                <input type="text" ng-disabled="!userEditObject.isSetNewPswd" placeholder="password"
+                    ng-model="userEditObject.updateUserObject.password" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="updateUser()">Update</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
