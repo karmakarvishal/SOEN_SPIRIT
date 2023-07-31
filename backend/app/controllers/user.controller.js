@@ -27,6 +27,18 @@ exports.update = async (req, res) => {
     if (req.body.last_name) {
         updatedUser.last_name = req.body.last_name;
     }
+    if (req.body.email) {
+      updatedUser.email = req.body.email;
+    }
+    if (req.body.password) {
+      updatedUser.password = req.body.password;
+    }
+    if (req.body.role) {
+      updatedUser.role = req.body.role;
+    }
+
+
+    
 
     const transaction = await db.sequelize.transaction();
     try {
@@ -43,3 +55,23 @@ exports.update = async (req, res) => {
     }
     res.status(200).json({message: "User updated successfully."});
   };
+
+exports.getUsers = async (req,res) => {
+  const userList = await db.user.findAll();
+
+  if (userList == null) {
+    res
+      .status(400)
+      .json({ statusText: "No Users." });
+    return;
+  }
+  res.status(200).json({userList});
+}
+
+
+exports.deleteUser = async (req,res) => {
+  const user = req.payload.id;
+  const count = await user.destroy({ where: { id: user } });
+  res.status(200).json({count});
+}
+
