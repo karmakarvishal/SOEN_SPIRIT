@@ -92,11 +92,11 @@ jobs:
       - name: Create reverse SSH tunnel for backend
         run: |
           # Start ngrok to create the reverse SSH tunnel
-          ./ngrok http 3000 --authtoken 2TM2H8LoAzHoI7KwliiD3mWNFp6_vcFH2ZFn2c49aZ3ScpAd --domain regular-dory-golden.ngrok-free.app --log stdout &
+          ./ngrok http 3000 --authtoken 2TM2H8LoAzHoI7KwliiD3mWNFp6_vcFH2ZFn2c49aZ3ScpAd --domain regular-dory-golden.ngrok-free.app --host-header=rewrite --log stdout &
       - name: Create reverse SSH tunnel for frontend
         run: |
           # Start ngrok to create the reverse SSH tunnel
-          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain regular-seagull-ultimately.ngrok-free.app --log stdout
+          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain regular-seagull-ultimately.ngrok-free.app --host-header=rewrite --log stdout
       # - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
       #   with:
       #     timeout: 1h
