@@ -49,12 +49,11 @@ jobs:
           npm install -g http-server
           http-server -c-1 -a 0.0.0.0 -p 8080 &
 
-      - uses: luisboto/ngrok-tunnel-action@v0.1.7.2
+      - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
         with:
           timeout: 1h
           port: 8080
           ngrok_authtoken: 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3
-          tunnel_type: http
       #- name: Deploy backend
 
        
