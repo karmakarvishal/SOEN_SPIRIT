@@ -4,7 +4,7 @@
 angular.module("myApp").factory("careerPlatformFactory", ["$http", "$q", "jwtHelper", "$state", function ($http, $q, jwtHelper, $state) {
     var factory = {};
     var apiAuthPath = "https://regular-dory-golden.ngrok-free.app/api/auth";
-    var apiPath = "https://regular-dory-golden.ngrok-free.app:3000/api";
+    var apiPath = "https://regular-dory-golden.ngrok-free.app/api";
     function setTokenForRequest() {
         var token = localStorage.getItem('jwt_token');
         //check for expiry
