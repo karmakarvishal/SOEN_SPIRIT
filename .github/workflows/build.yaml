@@ -72,12 +72,13 @@ jobs:
           envkey_DB_PORT: 3306
           envkey_DB_NAME: "spirit"
           some_other_variable: foobar
-          directory: backend
+          directory: ${{ env.HOME }}/backend/
           file_name: .env
           fail_on_empty: false
           sort_keys: false
       - name: Deploy backend
         run: |
+          echo ${{ env.HOME }}
           cd backend
           npm run dev &
           cd ..
