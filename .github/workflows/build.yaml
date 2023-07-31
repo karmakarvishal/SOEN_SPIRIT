@@ -49,12 +49,6 @@ jobs:
           npm install -g http-server
           http-server -c-1 -a 0.0.0.0 -p 8080 &
 
-      - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
-        with:
-          timeout: 1h
-          port: 8080
-          ngrok_authtoken: 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3
-
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
         with:
@@ -71,5 +65,10 @@ jobs:
           fail_on_empty: false
           sort_keys: false
       #- name: Deploy backend
+      - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
+        with:
+          timeout: 1h
+          port: 8080
+          ngrok_authtoken: 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3
 
        
