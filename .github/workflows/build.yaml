@@ -48,6 +48,16 @@ jobs:
         run: |
           npm install -g http-server
           http-server -c-1 -a 0.0.0.0 -p 8080 &
+      - name: Install ngrok
+        run: |
+          # Download and install ngrok
+          curl -O https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+          unzip ngrok-stable-linux-amd64.zip
+        working-directory: ${{ env.HOME }}
+      - name: Create reverse SSH tunnel with ngrok
+        run: |
+          # Start ngrok to create the reverse SSH tunnel
+          ./ngrok tcp 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3
       #- name: Deploy backend
 
        
