@@ -87,10 +87,14 @@ jobs:
           curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip
           unzip ngrok-v3-stable-linux-amd64.zip
         working-directory: ${{ env.HOME }}
-      - name: Create reverse SSH tunnel with ngrok
+      - name: Create reverse SSH tunnel for backend
         run: |
           # Start ngrok to create the reverse SSH tunnel
-          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain regular-seagull-ultimately.ngrok-free.app
+          ./ngrok http 8080 --authtoken 2TM2H8LoAzHoI7KwliiD3mWNFp6_vcFH2ZFn2c49aZ3ScpAd --domain regular-dory-golden.ngrok-free.app --log stdout &
+      - name: Create reverse SSH tunnel for frontend
+        run: |
+          # Start ngrok to create the reverse SSH tunnel
+          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain regular-seagull-ultimately.ngrok-free.app --log stdout
       # - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
       #   with:
       #     timeout: 1h
