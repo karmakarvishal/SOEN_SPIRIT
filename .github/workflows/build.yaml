@@ -3,7 +3,6 @@ name: CI/CD
 on:
   push:
     branches:
-      - ci_cd_issue_85
       - main
 
 jobs:
