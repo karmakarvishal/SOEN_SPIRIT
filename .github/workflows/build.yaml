@@ -16,10 +16,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'  
+          node-version: '18.17.0'  
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+          cd ..
 
       - name: Run tests
         run: npm test
@@ -36,15 +42,65 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14'
+          node-version: '18.17.0'
 
       - name: Install dependencies
         run: npm install
 
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+          cd ..
+
       - name: Run tests
         run: npm test
 
-      #- name: Deploy frontend
-      #- name: Deploy backend
+      - name: Deploy frontend
+        run: |
+          npm install -g http-server
+          http-server -c-1 -a 0.0.0.0 -p 8080 &
+
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_NODE_ENV: "development"
+          envkey_PORT: 3000
+          envkey_DB_HOST: "3.135.68.211"
+          envkey_DB_USER: "root"
+          envkey_DB_PASS: "root"
+          envkey_DB_PORT: 3306
+          envkey_DB_NAME: "spirit"
+          envkey_JWT_SECRET_KEY: "b3d990857293d72f44f612294f10a9d242f68718cad5b99f1477154156c9d86c"
+          some_other_variable: foobar
+          directory: backend/
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
+      - name: Deploy backend
+        run: |
+          cd backend
+          cat .env
+          npm run dev &
+          cd ..
+      - name: Install ngrok
+        run: |
+          # Download and install ngrok
+          curl -O https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip
+          unzip ngrok-v3-stable-linux-amd64.zip
+        working-directory: ${{ env.HOME }}
+      - name: Create reverse SSH tunnel for backend
+        run: |
+          # Start ngrok to create the reverse SSH tunnel
+          ./ngrok http 3000 --authtoken 2TM2H8LoAzHoI7KwliiD3mWNFp6_vcFH2ZFn2c49aZ3ScpAd --domain regular-dory-golden.ngrok-free.app --host-header=rewrite --log stdout &
+      - name: Create reverse SSH tunnel for frontend
+        run: |
+          # Start ngrok to create the reverse SSH tunnel
+          ./ngrok http 8080 --authtoken 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3 --domain regular-seagull-ultimately.ngrok-free.app --host-header=rewrite --log stdout
+      # - uses: apogiatzis/ngrok-tunneling-action@v0.1.4
+      #   with:
+      #     timeout: 1h
+      #     port: 8080
+      #     ngrok_authtoken: 1RKuzeUZrXfSKFhJ5mvbwxwRmhQ_48TNmwv1j3wxX97GzFrg3
 
        
