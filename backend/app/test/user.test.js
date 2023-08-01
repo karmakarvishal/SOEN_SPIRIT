@@ -1,32 +1,82 @@
-const UserManager = require('./UserManager');
+const db = require("../models");
+const { deleteUser, getUsers } = require('../controllers/user.controller');
+// userController.test.js
+const { Op } = require('sequelize');
 
-describe('UserManager', () => {
-  let userManager;
+// Mock the req and res objects to simulate a request and response
+const req = {};
 
-  beforeEach(() => {
-    userManager = new UserManager();
+const res = {
+  status: jest.fn().mockReturnThis(),
+  json: jest.fn(),
+};
+
+// Test case for getUsers
+test('getUsers should return the correct user list', async () => {
+  // Mock the database operation to return the expected result
+  db.user.findAll = jest.fn(() => Promise.resolve([{ id: 1, role: 'CANDIDATE' }, { id: 2, role: 'EMPLOYER' }])); // Assuming two users with roles CANDIDATE and EMPLOYER
+  // Call the async function
+  await getUsers(req, res);
+
+  // Assert that db.user.findAll was called with the correct query parameters
+  expect(db.user.findAll).toHaveBeenCalledWith({
+    where: {
+      [Op.or]: [{ role: 'CANDIDATE' }, { role: 'EMPLOYER' }],
+    },
   });
 
-  test('User registration with valid credentials', () => {
-    const result = userManager.registerUser('test@example.com', 'password123');
-    expect(result).toBe(true);
-    // Additional assertions to check if the user is registered in the database or repository
-  });
+  // Assert that res.status was called with 200
+  expect(res.status).toHaveBeenCalledWith(200);
 
-  test('User registration with an existing email', () => {
-    // Simulate a scenario where the email already exists in the database or repository
-    // Call the registerUser method and check if it returns false and an appropriate error message
-    // Additional assertions can be made to ensure that the error message is correct
-  });
-
-  test('User profile creation', () => {
-    // Create a user object or use a mock user for testing
-    const user = { id: 'user123' };
-    const profileData = { name: 'John Doe', skills: ['JavaScript', 'Node.js'] };
-    const result = userManager.createProfile(user, profileData);
-    expect(result).toBe(true);
-    // Additional assertions to check if the user's profile is successfully created
-  });
-
-  // Additional test cases can be added as needed for more comprehensive testing.
+  // Assert that res.json was called with the correct response object
+  expect(res.json).toHaveBeenCalledWith({ userList: [{ id: 1, role: 'CANDIDATE' }, { id: 2, role: 'EMPLOYER' }] });
 });
+
+test('getUsers should return 400 status with error message', async () => {
+  // Mock the database operation to return the expected result
+  db.user.findAll = jest.fn(() => Promise.resolve(null));
+  // Call the async function
+  await getUsers(req, res);
+
+  // Assert that db.user.findAll was called with the correct query parameters
+  expect(db.user.findAll).toHaveBeenCalledWith({
+    where: {
+      [Op.or]: [{ role: 'CANDIDATE' }, { role: 'EMPLOYER' }],
+    },
+  });
+
+  // Assert that res.status was called with 200
+  expect(res.status).toHaveBeenCalledWith(400);
+
+  // Assert that res.json was called with the correct response object
+  expect(res.json).toHaveBeenCalledWith({ statusText: "No Users." });
+});
+
+// Test case for deleteUser
+test('deleteUser should delete the user and return the correct count', async () => {
+  // Mock the req and res objects to simulate a request and response
+  const req = { params: { id: 1 } }; // Replace 1 with a valid user ID
+
+  const res = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+
+  // Mock the database operation with a mock function to return the expected result
+  db.user.destroy = jest.fn(() => Promise.resolve(1)); // Assuming 1 is the number of deleted records
+
+  // Call the async function
+  await deleteUser(req, res);
+
+  // Assert that db.user.destroy was called with the correct userId
+  expect(db.user.destroy).toHaveBeenCalledWith({ where: { id: 1 } });
+
+  // Assert that res.status was called with 200
+  expect(res.status).toHaveBeenCalledWith(200);
+
+  // Assert that res.json was called with the correct response object
+  expect(res.json).toHaveBeenCalledWith({ count: 1 });
+});
+
+
+

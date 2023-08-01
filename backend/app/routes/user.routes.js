@@ -23,7 +23,6 @@ module.exports = function (app) {
     check("first_name").optional().notEmpty().withMessage("first name is required."),
     check("last_name").optional().notEmpty().withMessage("last name is required."),
     check("email").optional().notEmpty().withMessage("email is required."),
-    check("password").optional().notEmpty().withMessage("password is required."),
     check("role").optional().notEmpty().withMessage("role is required."),
     (req, res, next) => {
       const errors = validationResult(req);
@@ -35,7 +34,8 @@ module.exports = function (app) {
     userController.update
   );
 
+  const deleteUserRoute = "/api/user/:id";
   app.get(updateUserRoute,userController.getUsers);
-  app.delete(updateUserRoute,userController.deleteUser);
+  app.delete(deleteUserRoute,userController.deleteUser);
   app.all(updateUserRoute, methodNotAllowed);
 };

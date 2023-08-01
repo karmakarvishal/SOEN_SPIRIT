@@ -1,7 +1,7 @@
 angular.module("myApp")
   .controller("extendedInfoPageController", ["$scope", "$stateParams", "$state", "careerPlatformFactory", function ($scope, $stateParams, $state, careerPlatformFactory) {
     if ($scope.loggedInUserDetails) {
-      $scope.setTopNavVisibility(false, false, true);
+      $scope.setTopNavVisibility(false, false, true, false);
     }
     else {
       $state.go("career-platform.login");

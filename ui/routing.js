@@ -90,6 +90,24 @@ angular.module("myApp")
                         controller: "editProfileController"
                     }
                 }
+            }).state("career-platform.edit-user", {
+                url: "/edit-user",
+                params: {
+                    currentState: "edit-user"
+                },
+                resolve: {
+                    loadFile: function ($ocLazyLoad) {
+                        return $ocLazyLoad.load({
+                            files: ["ui/views/edit-user/edit-user-controller.js"]
+                        });
+                    }
+                },
+                views: {
+                    "PrimaryContent": {
+                        templateUrl: "ui/views/edit-user/edit-user.html",
+                        controller: "editUserController"
+                    }
+                }
             })
         $urlRouterProvider.otherwise("/career-platform");
     });
