@@ -24,6 +24,9 @@ app.use(function (req, res, next) {
   // to the API (e.g. in case you use sessions)
   res.setHeader('Access-Control-Allow-Credentials', true);
 
+  res.header("access-control-allow-origin", "*");
+  res.header("access-control-allow-headers", "origin, x-requested-with, content- type, accept");
+
   // Pass to next layer of middleware
   next();
 });
