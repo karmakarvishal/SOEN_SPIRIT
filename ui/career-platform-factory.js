@@ -284,5 +284,81 @@ angular.module("myApp").factory("careerPlatformFactory", ["$http", "$q", "jwtHel
         return deferred.promise;
     };
 
+    factory.getAllUsers = function () {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.get(apiPath + "/user")
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
+
+    factory.updateUser = function (updateUserObject) {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.put(apiPath + "/user", updateUserObject)
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
+
+    factory.deleteUser = function (id) {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.delete(apiPath + "/user/" + id)
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
+
+    factory.getPreviousInfo = function () {
+        setTokenForRequest();
+        var deferred = $q.defer();
+        /* Local callback for success */
+        var createSuccess = function (result) {
+            /* Resolve the promise */
+            deferred.resolve(result.data);
+        };
+        /* Local callback for error */
+        var createError = function (ex) {
+            /* Reject the promise there was a problem */
+            deferred.reject(ex.data);
+        };
+        $http.get(apiPath + "/job/last/info")
+            .then(createSuccess, createError);
+        /* Return the promise to the caller */
+        return deferred.promise;
+    };
+
     return factory;
 }]);

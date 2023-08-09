@@ -248,12 +248,12 @@ exports.status = async (req, res) => {
                 
               };
 
-            //   transporter.sendMail(mailOptions, function(err, data) {
-            //     if (err) {
-            //       console.log("Error " + err);
-            //       res.status(400).json({Error:`${err}`});
-            //     }
-            //   })
+              transporter.sendMail(mailOptions, function(err, data) {
+                if (err) {
+                  console.log("Error " + err);
+                  res.status(400).json({Error:`${err}`});
+                }
+              })
         }
         res.status(200).json({ statusText: "Status updated successfully."})
     } catch (e) {
