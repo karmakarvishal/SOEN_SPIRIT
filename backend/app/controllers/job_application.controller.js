@@ -217,19 +217,18 @@ exports.status = async (req, res) => {
             const company = employer.dataValues.company_name;
 
             let transporter = nodemailer.createTransport({
-                service: 'gmail',
+                // service: 'gmail',
+                host: "smtp.gmail.com",
+                port: 465,
+                secure: true,
                 auth: {
-                  type: 'OAuth2',
-                  user: "karmakar922@gmail.com",
-                  pass: "vishalKarmakar123",
-                  clientId: '705251655934-7dck187fgb83ki37gurcvdbl0fgu0u4a.apps.googleusercontent.com',
-                  clientSecret: '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',
-                  refreshToken: '1//04iXKGEyCvTofCgYIARAAGAQSNwF-L9Irj00oe2Q8xL-_-QtW5OWmyjvj_EjvtJ_jfPDhSFeB6_EwWhivslCxZmFFp8VADDFZ_Dk'
+                  user: "uptechnotricks@gmail.com",
+                  pass: "ltbvtadttlpsbhvv",
                 }
               });
 
               let mailOptions = {
-                from: "karmakar922@gmail.com",
+                from: "uptechnotricks@gmail.com",
                 to: email,
                 subject: "The status for the job application having position " + job.dataValues.title +  " is changed to " + newStatus,
                 html: `<p>Hello ${user.dataValues.first_name},</p>
